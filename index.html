@@ -113,6 +113,17 @@ footer ul{margin-left:18px}
 footer li{margin-bottom:4px}
 .op{color:var(--warn);font-size:11px;font-weight:600}
 @media(max-width:640px){ .flow{flex-direction:column} .arrow{transform:rotate(90deg);align-self:flex-start;margin-left:12px} }
+/* listen player */
+.listen{display:none;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:14px 0 4px}
+.listen.ready{display:flex}
+.lbtn{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.lbtn svg{width:18px;height:18px;fill:currentColor}
+.lmain{flex:1 1 auto;min-width:0}
+.ltitle{font-size:13px;font-weight:600;margin-bottom:1px}
+.lmeta{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lbar{margin-top:6px;height:5px;border-radius:99px;background:var(--chipbg);cursor:pointer;position:relative}
+.lfill{height:100%;width:0%;border-radius:99px;background:var(--accent)}
+.lspeed{flex:0 0 auto;background:var(--chipbg);color:var(--ink2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body><!--brief-nav--><nav style="max-width:960px;margin:0 auto;padding:14px 16px 0;display:flex;gap:10px;align-items:center;font-size:14px;font-family:system-ui,-apple-system,sans-serif;"><span style="padding:6px 14px;border-radius:999px;background:var(--accent,#0f4c5c);color:#fff;font-weight:600;">Today &middot; Thu 27 Aug</span><a href="yesterday.html" style="padding:6px 14px;border-radius:999px;background:var(--chipbg,#f0efec);color:var(--ink,#0b0b0b);text-decoration:none;font-weight:600;">Yesterday &middot; Wed 26 Aug</a></nav>
@@ -124,6 +135,19 @@ footer li{margin-bottom:4px}
     <span class="mast-date">Thursday 27 August 2026 · Edition No. 2</span>
   </div>
   <div class="mast-sub">Asia · UK · South Africa · USA — with the Connections Engine</div>
+  <div class="listen" id="listen">
+    <button class="lbtn" id="lbtn" aria-label="Listen to this brief">
+      <svg id="lico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="lico-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="lmain">
+      <div class="ltitle">Listen to this brief</div>
+      <div class="lmeta" id="lmeta">Read by Sonia · —</div>
+      <div class="lbar" id="lbar"><div class="lfill" id="lfill"></div></div>
+    </div>
+    <button class="lspeed" id="lspeed" aria-label="Playback speed">1&times;</button>
+    <audio id="laudio" preload="metadata" src="brief-2026-08-27.mp3"></audio>
+  </div>
 </header>
 
 <!-- 1. WHAT MATTERS TODAY -->
@@ -211,6 +235,34 @@ footer li{margin-bottom:4px}
 </div>
 
 <script>
+/* ============ LISTEN PLAYER ============ */
+(function(){
+  const a=document.getElementById('laudio'), box=document.getElementById('listen'),
+        btn=document.getElementById('lbtn'), ip=document.getElementById('lico-play'),
+        iq=document.getElementById('lico-pause'), meta=document.getElementById('lmeta'),
+        bar=document.getElementById('lbar'), fill=document.getElementById('lfill'),
+        spd=document.getElementById('lspeed');
+  const fmt=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+  const speeds=[1,1.25,1.5]; let si=0;
+  a.addEventListener('loadedmetadata',()=>{ box.classList.add('ready'); meta.textContent='Read by Sonia · '+fmt(a.duration); });
+  a.addEventListener('error',()=>box.classList.remove('ready'));
+  btn.addEventListener('click',()=>{ a.paused?a.play():a.pause(); });
+  a.addEventListener('play',()=>{ip.style.display='none';iq.style.display='block';});
+  a.addEventListener('pause',()=>{ip.style.display='block';iq.style.display='none';});
+  a.addEventListener('timeupdate',()=>{
+    if(!a.duration)return;
+    fill.style.width=(a.currentTime/a.duration*100)+'%';
+    meta.textContent='Read by Sonia · '+fmt(a.currentTime)+' / '+fmt(a.duration);
+  });
+  a.addEventListener('ended',()=>{ip.style.display='block';iq.style.display='none';fill.style.width='0%';meta.textContent='Read by Sonia · '+fmt(a.duration);});
+  bar.addEventListener('click',e=>{
+    if(!a.duration)return;
+    const r=bar.getBoundingClientRect();
+    a.currentTime=(e.clientX-r.left)/r.width*a.duration;
+  });
+  spd.addEventListener('click',()=>{ si=(si+1)%speeds.length; a.playbackRate=speeds[si]; spd.innerHTML=speeds[si]+'&times;'; });
+})();
+
 /* ============ DASHBOARD DATA (all values dated in `asof`) ============ */
 const FXH = { /* 30-day ECB-fix history from price-history.csv (27 Jul – 26 Aug) */
  "USD/ZAR":[16.7411,16.7852,16.7499,16.5824,16.575,16.4698,16.4408,16.3466,16.3095,16.2233,16.1772,16.179,16.1343,16.1188,16.1648,16.1767,16.2196,16.2443,16.174,16.0044,16.0029,15.9878,15.916],
