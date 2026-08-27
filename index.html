@@ -509,27 +509,7 @@ document.getElementById('cal').innerHTML = CAL.map(c=>
  `<div class="crow"><div class="cwhen">${c[0]}</div><p>${c[1]}</p></div>`).join('');
 
 /* ============ FOOTER ============ */
-document.getElementById('footer').innerHTML = `
- <h4>Sources used</h4>
- <p>FT FirstFT (27 Aug, incl. Markets-at-07:00 panel), Bloomberg Morning Briefing Europe (27 Aug), Bloomberg Evening Briefing Americas (26 Aug), Business Day morning (27 Aug), Sharenet Daily (26 Aug close), Milk Road (26 Aug, opinion), Quiver Quantitative (26 Aug), WSJ/Dow Jones RSS, BBC Business RSS, FCA RSS, Moneyweb RSS, BusinessTech RSS, MarketWatch RSS, Yahoo Finance quote pages, Trading Economics, Hargreaves Lansdown, Kathmandu Post, Fiscal Nepal, Newsquawk weekly calendar, Asset Servicing Times / Jersey Finance (JPF regime detail).</p>
- <h4>Sources that failed or were unreliable today</h4>
- <ul>
-  <li>FRED fredgraph CSV (all 8 series): endpoint returned compressed data the fetch tool cannot decode — no index/rates 30-day history this run; sparklines for non-FX instruments remain 2-point until the rolling file builds (day 2 of 30).</li>
-  <li>Robots-blocked or erroring, as expected from the cloud: Bloomberg RSS, Nikkei Asia, Google News proxies, CNBC RSS/articles (403), Japan Times (402).</li>
-  <li>Stale caches: SCMP RSS (serving April), Yahoo Finance rssindex (serving 21–23 Aug).</li>
-  <li>No new items (not failures): Fed, SEC and BoE press feeds for 26–27 Aug.</li>
-  <li>Alpha Vantage quota unspent — none of today's gaps (JSE history, PGM spot, iron ore) are instruments it serves.</li>
-  <li>UK 10y: FT panel (5.030%) vs Trading Economics 26/8 (4.99%) disagree; FT used, gap noted in the table. Platinum spot vs futures and copper contract mismatches flagged in the dashboard note.</li>
- </ul>
- <h4>Newsletters read (8 in window)</h4>
- <p>FT FirstFT (27/8); Bloomberg Morning Briefing Europe (27/8); Bloomberg Evening Briefing Americas (26/8); Business Day morning (27/8); Sharenet Daily (26/8); Milk Road (26/8, opinion — facts only taken); Quiver Quantitative (26/8 — Trump disclosed $263m in trades 37 days late; Thrive Capital's first 13F shows $3.2bn in SpaceX); The AI Field (26/8, skimmed). Also received but already used in Edition No. 1: Investec Pulse and Bloomberg Markets Daily (both 26/8 morning). Bloomberg's Korean/Japanese-language briefings duplicate the English editions — consider unsubscribing. Altvest / Africa Bitcoin Corporation issuer round-up received (27/8) — treated as issuer marketing, excluded from the Radar per standing rule.</p>
- <h4>Housekeeping</h4>
- <ul>
-  <li><b>New keeper flagged:</b> “The AI Field” (theaifield@mail.beehiiv.com) — daily AI-industry letter; today it corroborated Bloomberg on China's Z.ai stealth model. Suggest adding to the master list.</li>
-  <li>The Gmail label <i>invest-newsletters</i> still does not exist — senders were searched directly again; creating the label + filters per the setup guide remains recommended.</li>
-  <li>Price-history file updated: 21 rows appended for 27 Aug (plus JSE 26-Aug closes); FX rows are appended from ECB fixes only — today's fix publishes 16:00 CET, after this run.</li>
- </ul>
- <p style="margin-top:12px"><b>No restricted list is in force</b> (confirmed by Gerrit, 26 Aug 2026). These are research ideas, not recommendations. Opinion items tagged (opinion). Generated 27 Aug 2026, ~08:50 Europe/Jersey. Target reading time ≤ 8 minutes.</p>`;
+document.getElementById('footer').innerHTML = '<p><b>No restricted list is in force.</b> These are research ideas, not recommendations. Opinion items are tagged (opinion).</p>';
 </script>
 </body>
 </html>

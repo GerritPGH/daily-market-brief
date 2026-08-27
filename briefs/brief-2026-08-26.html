@@ -475,22 +475,7 @@ const READS = [
 document.getElementById('reads').innerHTML = READS.map((r,i)=>
  `<div class="read"><b>${i+1}.</b> <a href="${r[2]}" target="_blank" rel="noopener">${r[0]}</a><span class="src"> — ${r[1]}</span><p>${r[3]}</p></div>`).join('');
 /* ============ FOOTER ============ */
-document.getElementById('footer').innerHTML = `
- <h4>Sources used</h4>
- <p>WSJ/Dow Jones RSS, Bloomberg Economics RSS, Federal Reserve & SEC RSS, BBC Business, FCA, Moneyweb, BusinessTech, CNBC Africa/Reuters syndication, Nikkei/SCMP via Trading Economics summaries, TechNode, Tradingpedia, Hargreaves Lansdown market report, Yahoo Finance quote pages & news, ECB reference rates (Frankfurter), Trading Economics, YCharts, sashares.co.za, Sharenet.</p>
- <h4>Sources that failed or were unreliable today</h4>
- <ul>
-  <li>Yahoo chart API blocked for cloud fetches → 30-day sparkline history only available for FX (ECB fixes). Index/commodity sparklines will need the LSEG connector or an alternative history source.</li>
-  <li>Bloomberg Markets RSS (404), CNBC RSS (403), Google News proxies for FT/Reuters/Investegate/BusinessLive/Caixin/Straits Times (robots-blocked), Japan Times (402), SCMP RSS (stale cache), Nikkei Asia RSS (robots-blocked), Yahoo rssindex (stale).</li>
-  <li>Yahoo's BTC/ETH quote pages served stale caches (~$64.7k BTC) — corrected against Yahoo Finance's own 26 Aug price article ($78.6k, 13:25 UK) and two independent newsletters.</li>
-  <li>Hang Seng close: Yahoo (25,653, +0.56%) vs Trading Economics (25,791, +1.1%) disagree; Yahoo used in the dashboard.</li>
-  <li>Platinum: conflicting Yahoo pages ($1,784 vs $1,861); flagged in the dashboard note.</li>
- </ul>
- <h4>Newsletters read (5)</h4>
- <p>Investec The Pulse (26 Aug); Business Day morning (26 Aug); Bloomberg Markets Daily (26 Aug); Sharenet Daily (25 Aug close); Milk Road (25 Aug, opinion). <b>Note:</b> the Gmail label <i>invest-newsletters</i> does not exist yet — senders were searched directly. Creating the label + filters per the setup guide will make this step faster and more complete. FT newsletters: welcome emails only today (Asset Management, White House Watch, Week Ahead) — content starts flowing with the next editions.</p>
- <h4>Compliance</h4>
- <p>No restricted list is in force (confirmed by Gerrit, 26 Aug 2026). Everything above is research and news summarisation, not investment advice or a recommendation to buy or sell anything.</p>
- <div class="disclaimer">Generated 26 Aug 2026, ~16:30 UK, by Claude for the Daily Market Brief project. Edition No. 1 — the format will sharpen with feedback. Numbers are as-at the dates shown; intraday figures move.</div>`;
+document.getElementById('footer').innerHTML = '<p><b>No restricted list is in force.</b> These are research ideas, not recommendations. Opinion items are tagged (opinion).</p>';
 </script>
 </body>
 </html>
