@@ -142,7 +142,7 @@ footer li{margin-bottom:4px}
     </button>
     <div class="lmain">
       <div class="ltitle">Listen to this brief</div>
-      <div class="lmeta" id="lmeta">Read by Sonia · —</div>
+      <div class="lmeta" id="lmeta">Read by Emma · —</div>
       <div class="lbar" id="lbar"><div class="lfill" id="lfill"></div></div>
     </div>
     <button class="lspeed" id="lspeed" aria-label="Playback speed">1&times;</button>
@@ -244,7 +244,7 @@ footer li{margin-bottom:4px}
         spd=document.getElementById('lspeed');
   const fmt=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
   const speeds=[1,1.25,1.5]; let si=0;
-  a.addEventListener('loadedmetadata',()=>{ box.classList.add('ready'); meta.textContent='Read by Sonia · '+fmt(a.duration); });
+  a.addEventListener('loadedmetadata',()=>{ box.classList.add('ready'); meta.textContent='Read by Emma · '+fmt(a.duration); });
   a.addEventListener('error',()=>box.classList.remove('ready'));
   btn.addEventListener('click',()=>{ a.paused?a.play():a.pause(); });
   a.addEventListener('play',()=>{ip.style.display='none';iq.style.display='block';});
@@ -252,9 +252,9 @@ footer li{margin-bottom:4px}
   a.addEventListener('timeupdate',()=>{
     if(!a.duration)return;
     fill.style.width=(a.currentTime/a.duration*100)+'%';
-    meta.textContent='Read by Sonia · '+fmt(a.currentTime)+' / '+fmt(a.duration);
+    meta.textContent='Read by Emma · '+fmt(a.currentTime)+' / '+fmt(a.duration);
   });
-  a.addEventListener('ended',()=>{ip.style.display='block';iq.style.display='none';fill.style.width='0%';meta.textContent='Read by Sonia · '+fmt(a.duration);});
+  a.addEventListener('ended',()=>{ip.style.display='block';iq.style.display='none';fill.style.width='0%';meta.textContent='Read by Emma · '+fmt(a.duration);});
   bar.addEventListener('click',e=>{
     if(!a.duration)return;
     const r=bar.getBoundingClientRect();
