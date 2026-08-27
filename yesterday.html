@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Market Brief — Wed 26 Aug 2026</title>
+<style>
+:root{
+  color-scheme: light;
+  --surface:#fcfcfb; --page:#f9f9f7; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --up:#006300; --down:#d03b3b; --warn:#b97a00; --good:#0ca30c;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s7:#4a3aa7;
+  --chipbg:#f0efec; --accent:#0f4c5c;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --surface:#1a1a19; --page:#0d0d0d; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --up:#0ca30c; --down:#e66767; --warn:#fab219; --good:#0ca30c;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s7:#9085e9;
+    --chipbg:#262624; --accent:#7fc4d8;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;font-size:15.5px}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+a{color:var(--s1);text-decoration:none}
+a:hover{text-decoration:underline}
+header.masthead{border-bottom:3px double var(--axis);padding:18px 0 14px;margin-bottom:22px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:30px;letter-spacing:.5px}
+.mast-date{color:var(--ink2);font-size:14px}
+.mast-sub{color:var(--muted);font-size:12.5px;margin-top:4px;text-transform:uppercase;letter-spacing:1.2px}
+h2{font-family:Georgia,serif;font-size:21px;margin:34px 0 6px;padding-top:10px;border-top:1px solid var(--grid)}
+h2 .kicker{display:block;font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.sectionlede{color:var(--ink2);font-size:13.5px;margin-bottom:14px}
+.lede{font-size:17px;line-height:1.65;font-family:Georgia,serif}
+.lede b{font-weight:700}
+/* world strip */
+.world{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:12px}
+.wcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.wcard h3{font-size:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tone{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--chipbg)}
+.tone.on{color:var(--up)} .tone.off{color:var(--down)} .tone.mix{color:var(--warn)}
+.wcard p{font-size:13px;color:var(--ink2)}
+.wcard .wnum{font-size:12.5px;margin-top:7px;color:var(--muted)}
+/* dashboard */
+table.dash{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:13.5px}
+.dash th{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid);font-weight:600}
+.dash td{padding:6px 10px;border-bottom:1px solid var(--grid);vertical-align:middle}
+.dash tr:last-child td{border-bottom:none}
+.dash td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.dash .grp td{background:var(--chipbg);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ink2);padding:5px 10px}
+.chg{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.chg.up{color:var(--up)} .chg.dn{color:var(--down)} .chg.na{color:var(--muted);font-weight:400}
+.asof{color:var(--muted);font-size:11.5px;white-space:nowrap}
+.spark{width:110px;height:26px;display:block}
+.sparkna{color:var(--muted);font-size:11px}
+.tblscroll{overflow-x:auto;border-radius:10px}
+.datanote{font-size:12px;color:var(--muted);margin-top:8px}
+/* connections */
+.chain{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+.chain h3{font-size:15.5px;margin-bottom:2px}
+.chain .spark-line{font-size:13px;color:var(--ink2);margin-bottom:12px}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:10px 0}
+.node{flex:1 1 150px;min-width:140px;background:var(--chipbg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12.5px;position:relative}
+.node .nlab{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.node.o1 .nlab{color:var(--s1)} .node.o2 .nlab{color:var(--s2)} .node.o3 .nlab{color:var(--s7)}
+.node.spk{background:transparent;border-style:dashed}
+.node.spk .nlab{color:var(--ink2)}
+.arrow{align-self:center;padding:0 4px;color:var(--muted);font-size:16px;flex:0 0 auto}
+.chainmeta{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:10px;font-size:13px}
+.chainmeta div{padding:8px 10px;border-left:3px solid var(--grid)}
+.chainmeta b{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);display:block;margin-bottom:2px;font-weight:600}
+.chainmeta .trip{border-left-color:var(--s2)}
+.conf{display:inline-flex;gap:3px;align-items:center;font-size:12px;color:var(--ink2)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grid);display:inline-block}
+.dot.f{background:var(--accent)}
+.hypo{font-size:11px;color:var(--warn);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+/* tabs */
+.tabbar{display:flex;gap:4px;border-bottom:2px solid var(--grid);margin-bottom:0;flex-wrap:wrap}
+.tabbtn{background:none;border:none;font:inherit;font-size:14px;font-weight:600;color:var(--muted);padding:8px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabbtn.active{color:var(--ink);border-bottom-color:var(--accent)}
+.tabpane{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:4px 16px}
+.tabpane.active{display:block}
+.hl{padding:12px 0;border-bottom:1px solid var(--grid)}
+.hl:last-child{border-bottom:none}
+.hl a.t{font-weight:600;font-size:14.5px;color:var(--ink)}
+.hl a.t:hover{color:var(--s1)}
+.hl .src{color:var(--muted);font-size:12px;margin-left:6px;white-space:nowrap}
+.hl p{font-size:13px;color:var(--ink2);margin-top:3px}
+.op{color:var(--warn);font-size:11px;font-weight:600}
+/* radar */
+.radar{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
+.rcard h3{font-size:14.5px}
+.rcard .rrow{font-size:12.5px;color:var(--ink2)}
+.rcard .rrow b{color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;display:block;font-weight:600}
+.rfoot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px;border-top:1px solid var(--grid);font-size:12px;color:var(--ink2)}
+/* lingo */
+.lingo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.lcard h3{font-size:16px;font-family:Georgia,serif;color:var(--accent)}
+.lcard .def{font-size:13px;margin:6px 0}
+.lcard .desk{font-size:13px;font-style:italic;border-left:3px solid var(--accent);padding:6px 10px;margin:8px 0;color:var(--ink2);background:var(--chipbg);border-radius:0 6px 6px 0}
+.lcard .why{font-size:12.5px;color:var(--muted)}
+/* reads */
+.reads{counter-reset:r}
+.read{padding:10px 0;border-bottom:1px solid var(--grid);font-size:14px}
+.read:last-child{border-bottom:none}
+.read p{font-size:13px;color:var(--ink2)}
+/* calendar */
+.cal{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:13.5px}
+.cal td{padding:8px 12px;border-bottom:1px solid var(--grid)}
+.cal tr:last-child td{border-bottom:none}
+.cal .when{white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums;width:150px;color:var(--accent)}
+.cal .big td{background:var(--chipbg)}
+/* footer */
+footer{margin-top:40px;padding-top:14px;border-top:3px double var(--axis);font-size:12px;color:var(--muted)}
+footer h4{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--ink2);margin:12px 0 4px}
+footer ul{margin-left:18px}
+.disclaimer{background:var(--chipbg);border-radius:8px;padding:10px 12px;margin-top:14px;font-size:12px}
+@media (max-width:640px){
+  .flow{flex-direction:column}
+  .arrow{transform:rotate(90deg);align-self:flex-start;padding:2px 0 2px 18px}
+  .node{min-width:0}
+  h1{font-size:24px}
+}
+</style>
+</head>
+<body><!--brief-nav--><nav style="max-width:960px;margin:0 auto;padding:14px 16px 0;display:flex;gap:10px;align-items:center;font-size:14px;font-family:system-ui,-apple-system,sans-serif;"><a href="index.html" style="padding:6px 14px;border-radius:999px;background:var(--chipbg,#f0efec);color:var(--ink,#0b0b0b);text-decoration:none;font-weight:600;">Today &middot; Thu 27 Aug</a><span style="padding:6px 14px;border-radius:999px;background:var(--accent,#0f4c5c);color:#fff;font-weight:600;">Yesterday &middot; Wed 26 Aug</span></nav>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="mast-top">
+    <h1>Daily Market Brief</h1>
+    <span class="mast-date">Wednesday 26 August 2026 · Edition No. 1</span>
+  </div>
+  <div class="mast-sub">Asia · UK · South Africa · USA — prepared for Gerrit Heyneke · research, not advice</div>
+</header>
+
+<section>
+  <h2><span class="kicker">Section 1</span>What matters today</h2>
+  <p class="lede">Today is a <b>coiled spring</b>: US core PCE and the Q2 GDP second estimate land at 13:30 UK, and <b>Nvidia reports after the close</b> (~21:20 UK) with options pricing their quietest earnings reaction in years — cheap insurance either way. Beneath the event risk, the week's real story is the <b>US Treasury's expanded bond buybacks</b> ("the Bessent plan"): the 10-year has been pulled to 4.64% (25 Aug) and the debasement trade is running hard — gold near $4,671 and <b>bitcoin through $80,000</b> for the first time in three months (+21% on the week). Oil is falling on Iran–Oman talk of a Hormuz transit deal (Brent $86, −1.3% today), which quietly flatters every inflation print and every EM currency — the rand sits at R15.95, its strongest in months, while at home <b>Northam Platinum (R122bn) is formally in play</b> after an unsolicited approach from a local rival. All figures dated where shown; opinion is tagged.</p>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 2</span>World at a glance</h2>
+  <div class="world">
+    <div class="wcard">
+      <h3>Asia <span class="tone on">▲ Risk-on</span></h3>
+      <p>Broad green close: chips bid into Nvidia, Alibaba insider buying calmed HK$80bn placement nerves, and stimulus hopes build into Friday's NPC Standing Committee close.</p>
+      <div class="wnum">Nikkei +0.6% · HSI +0.6% · KOSPI +1.0% · Nifty +0.5% (26 Aug closes)</div>
+    </div>
+    <div class="wcard">
+      <h3>UK <span class="tone mix">◆ Mixed</span></h3>
+      <p>FTSE edges up with global tone, but Ofgem's +4% October energy cap hardens the sticky-inflation problem for the BoE, and wealth-management distress signals are multiplying (FCA bans, EGR administration).</p>
+      <div class="wnum">FTSE 100 +0.2% intraday · gilts 10y 4.99% (26 Aug)</div>
+    </div>
+    <div class="wcard">
+      <h3>South Africa <span class="tone on">▲ Constructive</span></h3>
+      <p>Rand at R15.95 and bonds well bid on soft oil and the global easing trade; Northam M&A electrifies the PGM sector. Undertow: 1,600+ business liquidations YTD and a third straight leading-indicator decline.</p>
+      <div class="wnum">USD/ZAR 15.95 · SA 10y 8.61% · ALSI +0.1% (25 Aug close)</div>
+    </div>
+    <div class="wcard">
+      <h3>USA <span class="tone mix">◆ Coiled</span></h3>
+      <p>Futures flat, holding gains from the biggest Treasury-yield drop since June. Everything waits on PCE at 13:30 UK and Nvidia tonight; Canada's retaliatory tariffs add a slow-burn input-cost story.</p>
+      <div class="wnum">S&P 500 ~7,685 · 10y 4.64% (25 Aug) · BTC $78.6k</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 3</span>Dashboard</h2>
+  <p class="sectionlede">Levels as at the date shown; colour = direction of the day change. 30-day sparklines are shown where a verified daily history was available today (FX, via ECB reference fixes) — see footer for why index histories are missing.</p>
+  <div class="tblscroll">
+  <table class="dash" id="dashtable">
+    <thead><tr><th>Instrument</th><th style="text-align:right">Level</th><th style="text-align:right">1-day</th><th>30-day</th><th>As of</th></tr></thead>
+    <tbody id="dashbody"></tbody>
+  </table>
+  </div>
+  <p class="datanote">Sparkline colour = 30-day direction; for the two ZAR pairs it is inverted so green = rand strengthening. GBP/ZAR is an ECB 14:15 CET fix. JSE rows are the 25 Aug close (Sharenet); the 26 Aug session showed the All Share softer intraday. Platinum: Oct-26 future $1,784 (26 Aug) vs $1,865 spot on 25 Aug (Sharenet) — futures vs spot basis plus conflicting Yahoo pages; treat with caution. Iron ore: n/a — no verifiable quote obtained today.</p>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 4 — the signature section</span>Connections Engine</h2>
+  <p class="sectionlede">Seemingly unrelated things happening in the world, traced to their second- and third-order market consequences. <span class="hypo">These chains are hypotheses</span> — structured speculation with a stated confidence and a tripwire that confirms or kills each one.</p>
+  <div id="chains"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 5</span>The four markets</h2>
+  <div class="tabbar" id="tabbar" role="tablist">
+    <button class="tabbtn active" data-tab="asia">Asia</button>
+    <button class="tabbtn" data-tab="uk">UK</button>
+    <button class="tabbtn" data-tab="sa">South Africa</button>
+    <button class="tabbtn" data-tab="usa">USA</button>
+  </div>
+  <div id="tabpanes"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 6</span>Opportunity Radar</h2>
+  <p class="sectionlede">Situations worth research time — ranked by move-vs-fundamentals, durability, and relevance to the four markets. Research ideas only, never recommendations.</p>
+  <div class="radar" id="radar"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 7 — desk lingo</span>Sound like the desk</h2>
+  <p class="sectionlede">Terms a PM would actually use on today's tape. Recap of previous terms starts tomorrow — this is Edition No. 1.</p>
+  <div class="lingo" id="lingo"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 8</span>Top 3 reads</h2>
+  <div class="reads" id="reads"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 9</span>Next 48 hours</h2>
+  <div class="tblscroll">
+  <table class="cal">
+    <tr class="big"><td class="when">Today 13:30 UK</td><td><b>US core PCE (July)</b> — consensus +0.2% m/m — plus Q2 GDP second estimate (cons. 1.5%, prior 2.1%) and July durable goods. The front-end reprices off this. <span class="asof">(Investec Pulse / Newsquawk, 26 Aug)</span></td></tr>
+    <tr><td class="when">Today 15:30 UK</td><td>EIA weekly crude inventories — watched closely with Brent already −5% on the week on Hormuz diplomacy.</td></tr>
+    <tr class="big"><td class="when">Today ~21:20 UK</td><td><b>Nvidia Q2 FY27</b> — consensus ≈ $92bn revenue, adj EPS ≈ $2.08–2.09. Salesforce and CrowdStrike also after the US close. Asia's AI complex (Samsung, SK Hynix, TSMC chain) keys off the data-centre guidance tomorrow morning.</td></tr>
+    <tr><td class="when">Thu 27, 13:30 UK</td><td>US initial jobless claims (standard weekly slot); Fed speakers continue post-Jackson-Hole.</td></tr>
+    <tr><td class="when">Fri 28 Aug</td><td><b>NPC Standing Committee concludes</b> (met 25–28 Aug) — the week's China stimulus signal; iron ore, copper and China cyclicals move first if fiscal measures land.</td></tr>
+    <tr><td class="when">Mon 31 Aug</td><td>UK summer bank holiday — London closed; thin European liquidity.</td></tr>
+    <tr><td class="when">Ahead</td><td>BoE Bank Rate decision 17 Sep (held at 3.75% on 30 Jul). SARB repo 7.00% (held 4-2 on 23 Jul); next MPC in September.</td></tr>
+  </table>
+  </div>
+</section>
+
+<footer id="footer"></footer>
+
+</div>
+<script>
+/* ============ DATA ============ */
+const FX_HIST = {
+ "USD/ZAR":[["07-27",16.7411],["07-28",16.7852],["07-29",16.7499],["07-30",16.5824],["07-31",16.575],["08-03",16.4698],["08-04",16.4408],["08-05",16.3466],["08-06",16.3095],["08-07",16.2233],["08-10",16.1772],["08-11",16.179],["08-12",16.1343],["08-13",16.1188],["08-14",16.1648],["08-17",16.1767],["08-18",16.2196],["08-19",16.2443],["08-20",16.174],["08-21",16.0044],["08-24",16.0029],["08-25",15.9878],["08-26",15.916]],
+ "GBP/USD":[["07-27",1.3317],["07-28",1.3287],["07-29",1.3289],["07-30",1.3389],["07-31",1.3421],["08-03",1.347],["08-04",1.3446],["08-05",1.3479],["08-06",1.3467],["08-07",1.345],["08-10",1.3504],["08-11",1.35],["08-12",1.3525],["08-13",1.3492],["08-14",1.3537],["08-17",1.3559],["08-18",1.3526],["08-19",1.3556],["08-20",1.3626],["08-21",1.3656],["08-24",1.3634],["08-25",1.3632],["08-26",1.363]],
+ "GBP/ZAR":[["07-27",22.294],["07-28",22.302],["07-29",22.259],["07-30",22.201],["07-31",22.246],["08-03",22.185],["08-04",22.106],["08-05",22.033],["08-06",21.964],["08-07",21.82],["08-10",21.846],["08-11",21.841],["08-12",21.822],["08-13",21.747],["08-14",21.882],["08-17",21.934],["08-18",21.938],["08-19",22.021],["08-20",22.039],["08-21",21.855],["08-24",21.819],["08-25",21.794],["08-26",21.693]],
+ "USD/JPY":[["07-27",163.64],["07-28",163.91],["07-29",163.68],["07-30",162.94],["07-31",160.24],["08-03",156.68],["08-04",157.41],["08-05",157.59],["08-06",157.83],["08-07",158.34],["08-10",158.64],["08-11",159.2],["08-12",159.09],["08-13",159.33],["08-14",159.01],["08-17",159.23],["08-18",159.7],["08-19",159.09],["08-20",158.76],["08-21",158.7],["08-24",159.12],["08-25",159.24],["08-26",159.07]],
+ "USD/CNY":[["07-27",6.7661],["07-28",6.7713],["07-29",6.7663],["07-30",6.7551],["07-31",6.7513],["08-03",6.7526],["08-04",6.7535],["08-05",6.75],["08-06",6.7491],["08-07",6.7476],["08-10",6.7444],["08-11",6.7453],["08-12",6.7432],["08-13",6.743],["08-14",6.7413],["08-17",6.7394],["08-18",6.7423],["08-19",6.7382],["08-20",6.7236],["08-21",6.7206],["08-24",6.7227],["08-25",6.7198],["08-26",6.7205]],
+ "EUR/USD":[["07-27",1.1389],["07-28",1.1367],["07-29",1.138],["07-30",1.1476],["07-31",1.1485],["08-03",1.1535],["08-04",1.1515],["08-05",1.1554],["08-06",1.1542],["08-07",1.1535],["08-10",1.1555],["08-11",1.154],["08-12",1.1545],["08-13",1.1534],["08-14",1.1567],["08-17",1.1593],["08-18",1.1576],["08-19",1.1605],["08-20",1.1681],["08-21",1.1699],["08-24",1.1664],["08-25",1.1662],["08-26",1.1669]]
+};
+const DASH = [
+ {g:"Equities"},
+ {n:"S&P 500", v:"7,684.55", c:+0.09, a:"26 Aug intraday", note:"Yahoo"},
+ {n:"Nasdaq 100", v:"29,184.66", c:-0.08, a:"26 Aug intraday", note:"Yahoo"},
+ {n:"FTSE 100", v:"10,907.73", c:+0.20, a:"26 Aug intraday", note:"Yahoo"},
+ {n:"FTSE 250", v:"24,922.34", c:+0.27, a:"26 Aug (delayed)", note:"Hargreaves Lansdown"},
+ {n:"JSE All Share", v:"116,828.14", c:+0.10, a:"25 Aug close", note:"Sharenet"},
+ {n:"JSE Top 40", v:"109,534.57", c:+0.13, a:"25 Aug close", note:"Sharenet"},
+ {n:"Nikkei 225", v:"66,262.16", c:+0.62, a:"26 Aug close", note:"Yahoo"},
+ {n:"Hang Seng", v:"25,652.97", c:+0.56, a:"26 Aug close", note:"Yahoo"},
+ {n:"Shanghai Comp", v:"3,912.52", c:+0.59, a:"26 Aug close", note:"Yahoo"},
+ {n:"KOSPI", v:"6,808.21", c:+0.97, a:"26 Aug close", note:"Yahoo"},
+ {n:"Straits Times", v:"5,721.59", c:-0.25, a:"26 Aug close", note:"Yahoo"},
+ {n:"Nifty 50", v:"24,334.55", c:+0.48, a:"26 Aug close", note:"Yahoo"},
+ {g:"FX"},
+ {n:"USD/ZAR", v:"15.954", c:+0.11, a:"26 Aug intraday", spark:"USD/ZAR", inv:true, note:"Yahoo / ECB"},
+ {n:"GBP/USD", v:"1.3607", c:-0.32, a:"26 Aug intraday", spark:"GBP/USD", note:"Yahoo / ECB"},
+ {n:"GBP/ZAR", v:"21.693", c:-0.46, a:"26 Aug ECB fix", spark:"GBP/ZAR", inv:true, note:"ECB"},
+ {n:"USD/JPY", v:"159.35", c:+0.10, a:"26 Aug intraday", spark:"USD/JPY", note:"Yahoo / ECB"},
+ {n:"USD/CNY", v:"6.7215", c:+0.17, a:"26 Aug intraday", spark:"USD/CNY", note:"Yahoo / ECB"},
+ {n:"EUR/USD", v:"1.1674", c:+0.06, a:"26 Aug intraday", spark:"EUR/USD", note:"Yahoo / ECB"},
+ {g:"Rates & policy"},
+ {n:"US 10y Treasury", v:"4.64%", c:-0.06, cu:"−6bp", a:"25 Aug", note:"YCharts; −11bp w/w (Bloomberg)"},
+ {n:"UK 10y gilt", v:"4.99%", c:+0.02, cu:"+2bp", a:"26 Aug", note:"Trading Economics"},
+ {n:"SA 10y bond", v:"8.61%", c:-0.01, cu:"−1bp", a:"26 Aug", note:"Trading Economics; R2035 8.435% (Reuters)"},
+ {n:"Japan 10y JGB", v:"2.90%", c:+0.01, cu:"+1bp", a:"25 Aug", note:"YCharts"},
+ {n:"Fed funds target", v:"3.50–3.75%", c:null, a:"since 29 Jul", note:"Federal Reserve"},
+ {n:"BoE Bank Rate", v:"3.75%", c:null, a:"held 30 Jul", note:"Bank of England"},
+ {n:"SARB repo", v:"7.00%", c:null, a:"held 23 Jul (4-2)", note:"SARB / TE"},
+ {g:"Commodities"},
+ {n:"Brent crude", v:"$86.13", c:-1.31, a:"26 Aug", note:"Yahoo; −~5% w/w"},
+ {n:"Gold", v:"$4,671", c:-0.50, a:"26 Aug", note:"Yahoo"},
+ {n:"Platinum (Oct fut)", v:"$1,784", c:+1.68, a:"26 Aug", note:"Yahoo — see caveat below"},
+ {n:"Palladium", v:"$1,357", c:+0.52, a:"26 Aug", note:"Yahoo"},
+ {n:"Copper (Sep fut)", v:"$6.77/lb", c:-0.71, a:"26 Aug", note:"Yahoo; 'near record' (Bloomberg)"},
+ {n:"Iron ore", v:"n/a", c:null, a:"—", note:"no verifiable quote today"},
+ {g:"Digital assets"},
+ {n:"Bitcoin", v:"$78,586", c:-0.5, cu:"−0.5% vs Tue open", a:"26 Aug 13:25 UK", note:"Yahoo Finance news; +21.4% w/w, Tue high $81,235"},
+ {n:"Ethereum", v:"$2,470", c:-1.6, cu:"−1.6% vs Tue open", a:"26 Aug 13:25 UK", note:"Yahoo Finance news; +27.4% w/w"}
+];
+/* ============ RENDER: dashboard ============ */
+function sparkSVG(key, invertGood){
+  const data = FX_HIST[key]; if(!data) return '<span class="sparkna">n/a</span>';
+  const vals = data.map(d=>d[1]);
+  const min=Math.min(...vals), max=Math.max(...vals), pad=(max-min)*0.08||0.001;
+  const lo=min-pad, hi=max+pad, W=110, H=26;
+  const pts = vals.map((v,i)=>[(i/(vals.length-1))*W, H-((v-lo)/(hi-lo))*H]);
+  const dAttr = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const rising = vals[vals.length-1] >= vals[0];
+  const good = invertGood ? !rising : rising; /* for ZAR pairs, falling = rand stronger = green */
+  const col = good ? 'var(--up)' : 'var(--down)';
+  const last = pts[pts.length-1];
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${key} 30-day trend">
+    <path d="${dAttr}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.6" fill="${col}"/></svg>`;
+}
+(function(){
+  const tb = document.getElementById('dashbody');
+  let html='';
+  for(const r of DASH){
+    if(r.g){ html+=`<tr class="grp"><td colspan="5">${r.g}</td></tr>`; continue; }
+    let chg;
+    if(r.c===null) chg = `<span class="chg na">—</span>`;
+    else {
+      const cls = r.c>0?'up':(r.c<0?'dn':'na');
+      const txt = r.cu ? r.cu : (r.c>0?'+':'')+r.c.toFixed(2)+'%';
+      chg = `<span class="chg ${cls}">${txt}</span>`;
+    }
+    const spark = r.spark ? sparkSVG(r.spark, r.inv) : '<span class="sparkna">n/a</span>';
+    html+=`<tr><td>${r.n}<div class="asof">${r.note||''}</div></td><td class="num"><b>${r.v}</b></td><td class="num">${chg}</td><td>${spark}</td><td class="asof">${r.a}</td></tr>`;
+  }
+  tb.innerHTML = html;
+})();
+</script>
+<script>
+/* ============ CONNECTIONS ENGINE ============ */
+const CHAINS = [
+ {t:"The Hormuz handshake reaches the rand",
+  s:"Reports of an Iran–Oman deal to keep the Strait of Hormuz open, plus talk of softer US secondary sanctions, knocked Brent to $86 (−~5% w/w, 26 Aug).",
+  n:["Oil's war-risk premium deflates: tanker rates and cargo-insurance costs start unwinding",
+     "SA's imported-fuel inflation math improves → petrol-price relief → CPI path softens → strengthens the SARB doves (repo held 7.00%, vote already 4-2)",
+     "Rate-cut expectations pull SA 10y (8.61%) lower, the rand holds sub-R16, and JSE Financials extend their lead (Fin15 +1.22% on 25 Aug)"],
+  x:"SA bonds, the rand, JSE banks/insurers over weeks-to-months; UK inflation gets the same tailwind at the margin.",
+  trip:"A signed/confirmed Hormuz transit arrangement, and SA's early-September fuel-price announcement. If Brent snaps back above ~$92, kill the chain.",
+  conf:2, weak:"Diplomacy headlines reverse fast — the whole chain rests on link one holding."},
+ {t:"Two men who broke the Bank of England are now arguing about the bond market",
+  s:"US Treasury Secretary Bessent doubled Treasury's buyback operations (≥$4bn per op) to cap long yields; his ex-mentor Stanley Druckenmiller — his partner in the 1992 sterling trade — called it price-fixing in a WSJ op-ed (opinion).",
+  n:["Long yields fall: US 10y 4.64% (25 Aug), biggest weekly drop since June — a policy-engineered bull flattener",
+     "Investors read yield-capping with a 6%-of-GDP deficit as soft debasement → the 'own assets' trade: gold $4,671, bitcoin +21% w/w through $80k",
+     "If it holds: EM carry (rand included) and gold miners win. If Druckenmiller is right and auctions rebel, yields snap back and the whole risk rally unwinds"],
+  x:"US duration, gold, BTC, JSE gold counters, rand carry — days-to-weeks, with a violent reversal tail.",
+  trip:"The 30-year Treasury yield: it dipped ~10bp on the buyback news then bounced back above 5.24% within 24h. Sustained trade below ~5.2% = plan working; a failed auction = kill.",
+  conf:2, weak:"Second link — 'buybacks cause the rally' — may really be falling oil in disguise (Bloomberg's own caveat)."},
+ {t:"Rustenburg's illegal-mining siege meets a R122bn takeover bid",
+  s:"Northam Platinum received an unsolicited approach from a SA rival and appointed One Capital to run a bidding process (Business Day, 26 Aug) — while Rustenburg's platinum belt is described as 'under siege' by illegal mining (BusinessTech).",
+  n:["Security costs and supply risk rise for platinum-belt operators just as platinum firms (+1.7% to $1,784, 26 Aug) and palladium bid",
+     "Consolidation becomes the rational response: scale spreads security/infrastructure costs — the unsolicited Northam approach reprices every PGM counter as a potential target or acquirer",
+     "A bidding war lifts the whole complex; UK/US autos (palladium buyers) face a firmer input, and SA's mining royalty take improves with the metal"],
+  x:"Northam, Impala, Sibanye, Valterra and the PGM basket; weeks (bid process) to quarters (metal cycle).",
+  trip:"The bidder's name. If the rival is revealed and a formal offer lands, chain confirmed; if the cautionary is withdrawn, it dies. Watch platinum holding above $1,800 too.",
+  conf:3, weak:"The illegal-mining link is contextual — the bid may be pure valuation opportunism after platinum's run."},
+ {t:"Bitcoin miners are quitting bitcoin — and that's an electricity story",
+  s:"Crypto-mining firms are pivoting rigs and power contracts to AI compute (BBC, 25 Aug); Meta is reportedly weighing selling scarce compute at a premium; Alibaba just raised HK$80bn for AI capex; Iberian firms are scrambling for battery backup after grid failures.",
+  n:["AI demand outbids bitcoin for electrons: miners defect, and compute becomes a sellable commodity — power, not chips, becomes the binding constraint",
+     "Bitcoin hashrate growth slows → mining economics improve for the miners who stay, precisely as BTC rallies through $80k — a margin double-whammy",
+     "Grid-equipment, battery-storage and generation names become the picks-and-shovels of AI; HK's mega-raises (Alibaba) tighten local liquidity (HIBOR) at the margin"],
+  x:"Power/grid names (US, UK, Asia), listed miners' margins, HK liquidity; months.",
+  trip:"Tonight's Nvidia data-centre guidance — the demand signal for the whole chain — plus the next BTC network-hashrate prints. Guidance miss = de-rate the chain.",
+  conf:1, weak:"Three moving parts deep; the hashrate link is the least evidenced today."}
+];
+(function(){
+  const host=document.getElementById('chains');
+  host.innerHTML = CHAINS.map(c=>{
+    const orders=['1st order','2nd order','3rd order'], cls=['o1','o2','o3'];
+    const nodes = [`<div class="node spk"><div class="nlab">The spark</div>${c.s}</div>`]
+      .concat(c.n.map((txt,i)=>`<div class="arrow">➜</div><div class="node ${cls[i]}"><div class="nlab">${orders[i]}</div>${txt}</div>`)).join('');
+    const dots = [1,2,3].map(i=>`<span class="dot${i<=c.conf?' f':''}"></span>`).join('');
+    const confTxt = c.conf===3?'High':(c.conf===2?'Medium':'Low');
+    return `<div class="chain"><h3>${c.t}</h3>
+      <div class="flow">${nodes}</div>
+      <div class="chainmeta">
+        <div><b>Market expression</b>${c.x}</div>
+        <div class="trip"><b>Tripwire — watch this</b>${c.trip}</div>
+        <div><b>Confidence · weakest link</b><span class="conf">${dots}&nbsp;${confTxt}</span> — ${c.weak}</div>
+      </div></div>`;
+  }).join('');
+})();
+/* ============ MARKET TABS ============ */
+const TABS = {
+ asia:[
+  ["Alibaba raises HK$80bn in Hong Kong placement to fund AI infrastructure","TechNode, 24–25 Aug","https://technode.com/2026/08/24/alibaba-raises-hk80-billion-through-a-share-placement-to-fund-ai-infrastructure/","Biggest HK equity raise in years, funding a $52bn 3-year AI/cloud budget. So what: the dilution-vs-growth trade sets the tone for every Asian AI capex story — and the chairman's own share purchases steadied the stock (+HSI 26 Aug)."],
+  ["Asian Nvidia suppliers rebound ahead of tonight's results","Tradingpedia, 26 Aug","https://www.tradingpedia.com/2026/08/26/asian-nvidia-tech-stocks-rebound-ahead-of-earnings-report/","Consensus ~$92bn revenue / ~$2.08 EPS. So what: Samsung, SK Hynix and the TSMC chain are the region's highest-beta expression of tonight's print; KOSPI closed +0.97% at 6,808."],
+  ["NPC Standing Committee meets 25–28 Aug; stimulus hopes build","Trading Economics, 26 Aug","https://tradingeconomics.com/china/stock-market","Shanghai +0.59% into the close of the session. So what: a fiscal surprise on Friday moves iron ore, copper and China cyclicals before it moves Chinese banks — and reads straight across to SA resource counters."],
+  ["Japan defence agency selects Terra Drone for interceptor drones; stock +20%","Trading Economics, 26 Aug","https://tradingeconomics.com/japan/stock-market","So what: Japanese procurement is opening to startups — defence-tech small caps, batteries, sensors and counter-drone suppliers are the derivative trade as Japan re-arms."],
+  ["Foreign investors pour >$2.5bn into Indian equities in August","Trading Economics, 26 Aug","https://tradingeconomics.com/india/stock-market","Nifty +0.48% to 24,334. So what: FII flows have flipped positive after a long drought — a regime change worth tracking for EM allocations that also feeds the broader EM (and SA) flow story."]
+ ],
+ uk:[
+  ["Ofgem raises the household energy price cap ~4% from October","BBC, 26 Aug","https://www.bbc.co.uk/news/articles/cqjkl1xvgw5o","Bills hit a three-year high. So what: sticky administered prices complicate the BoE's cutting path (Bank Rate 3.75%, next call 17 Sep) — gilts at 4.99% are already the G7's problem child."],
+  ["FCA bans three individuals behind £35.5m Dolfin Financial visa-scheme","FCA, 26 Aug","https://www.fca.org.uk/news/press-releases/fca-bans-trio-bypass-visa-rules","So what: enforcement heat on wealth managers and legacy investor-visa conduct keeps rising — governance diligence on UK wealth/fund clients is not optional. Directly relevant to Channel Islands fiduciary work."],
+  ["EGR Wealth Limited enters administration","FCA, 26 Aug","https://www.fca.org.uk/news/news-stories/egr-wealth-limited-enters-administration","So what: another strain signal in UK wealth management — watch FSCS implications and consolidation of distressed books by larger platforms."],
+  ["Rockhopper raises estimated Sea Lion (Falklands) field volumes","Investegate/HL RNS, 26 Aug","https://www.hl.co.uk/shares/stock-market-news","So what: small-cap oil revaluation with read-across to partners; UK-listed frontier E&P getting a second look while majors stay capital-disciplined."],
+  ["AI gold rush draws crypto firms away from Bitcoin mining","BBC, 25 Aug","https://www.bbc.co.uk/news/articles/c07ler8x9kpo","So what: see Connections chain 4 — the power-demand and hashrate consequences are bigger than the headline; UK grid and data-centre planning is part of the same story."]
+ ],
+ sa:[
+  ["Northam Platinum in play: unsolicited approach for the R122bn miner","Business Day, 26 Aug","https://www.businesslive.co.za/","One Capital appointed to run a bidding process after an unsolicited approach from a SA rival; shares spiked up to 8% Monday, NPH ~R299. So what: the whole PGM complex reprices as target-or-acquirer — see Connections chain 3."],
+  ["Rand steady at R15.93/$; 2035 bond yield eases to 8.435%","Reuters via CNBC Africa, 26 Aug","https://www.cnbcafrica.com/2026/south-african-rand-steady-with-key-us-inflation-data-in-focus","So what: the rand's strongest zone in months rests on soft oil + the global easing trade; today's US PCE is the trigger either way. GBP/ZAR at 21.69 matters for anyone with sterling income and rand costs."],
+  ["Blu Label reports R5bn net loss on Cell C listing accounting","Moneyweb, 26 Aug","https://www.moneyweb.co.za/news/companies-and-deals/blu-label-reports-r5bn-net-loss-due-to-cell-c-listing/","Revenue −7% to R13.05bn but first dividend in 8 years (53.56c). So what: a lesson in separating IFRS noise (listing revaluation) from cash reality — classic audit-committee conversation material."],
+  ["Naspers/Prosus CEO's R1.5bn 'special' bonus under investor fire","BusinessTech, 26 Aug","https://businesstech.co.za/news/business/872146/","So what: governance flashpoint at the JSE's largest counter ahead of AGM season — proxy advisers' stance will test SA institutional shareholders' appetite for dissent."],
+  ["Discovery flags FY26 normalised HEPS +18–23%","Moneyweb / Investec Pulse, 26 Aug","https://www.moneyweb.co.za/news/companies-and-deals/discovery-sees-healthy-rise-in-profit/","DSY +3.7% to R256. So what: SA insurers keep printing; with Financial 15 +1.22% on 25 Aug, the financials-over-resources rotation has legs while the rand holds."]
+ ],
+ usa:[
+  ["Tech leads indexes higher; 10-year yield notches biggest drop since June","WSJ, 25 Aug","https://www.wsj.com/finance/stocks/tech-stocks-lead-major-indexes-higher-6291aac9","So what: duration rally + tech leadership = the market pricing both a friendly Fed and a strong Nvidia. Two assumptions, one day of proof: PCE 13:30 UK, Nvidia 21:20 UK."],
+  ["Options traders betting on the quietest Nvidia reaction in years","MarketWatch, 25 Aug","https://www.marketwatch.com/story/options-traders-are-betting-on-the-quietest-nvidia-earnings-reaction-in-years-it-could-be-an-opportunity-for-ai-bulls-91955793","So what: implied vol this cheap into the AI bellwether is unusual — a big move either way pays. Note Nvidia has sold off after four straight beats (opinion flagged in sourcing)."],
+  ["Canada strikes back with retaliatory tariffs; Trump weighs more levies","WSJ / Bloomberg, 25–26 Aug","https://www.wsj.com/finance/stocks/canada-strikes-back-2eba01b9","So what: North American trade friction hits lumber (US homebuilders), autos and agriculture — a slow-burn input-cost inflation offset to falling oil that complicates the Fed's picture."],
+  ["Oil falls on signs of Middle East talks; WTI ~$80","WSJ, 26 Aug","https://www.wsj.com/finance/commodities-futures/oil-falls-on-signs-of-middle-east-talks-b6581385","So what: the disinflation gift that keeps giving — supports the rate-cut trade, hurts energy equities, and feeds Connections chain 1 all the way to the rand."],
+  ["Mark Walter's troubles disrupt the PE-into-life-insurance trade","WSJ, 26 Aug","https://www.wsj.com/finance/investing/mark-walters-troubles-are-disrupting-the-insurance-worlds-hottest-trade-7aa61866","Doubts over the $4.1bn Brighthouse takeover. So what: if the PE-buys-annuity-books model stalls, private-credit fundraising and asset-backed structures feel it — directly relevant to PE fund-structure conversations."]
+ ]
+};
+(function(){
+  const panes=document.getElementById('tabpanes');
+  panes.innerHTML = Object.entries(TABS).map(([k,items],idx)=>
+    `<div class="tabpane${idx===0?' active':''}" id="pane-${k}">`+
+    items.map(h=>`<div class="hl"><a class="t" href="${h[2]}" target="_blank" rel="noopener">${h[0]}</a><span class="src">${h[1]}</span><p>${h[3]}</p></div>`).join('')+
+    `</div>`).join('');
+  document.getElementById('tabbar').addEventListener('click',e=>{
+    const b=e.target.closest('.tabbtn'); if(!b)return;
+    document.querySelectorAll('.tabbtn').forEach(x=>x.classList.toggle('active',x===b));
+    document.querySelectorAll('.tabpane').forEach(p=>p.classList.toggle('active',p.id==='pane-'+b.dataset.tab));
+  });
+})();
+/* ============ OPPORTUNITY RADAR ============ */
+const RADAR = [
+ {t:"1 · Northam Platinum bidding process (SA, PGMs)",
+  th:"An unsolicited approach + a formal bidding process on a R122bn miner, with platinum firm and the sector cheap vs history — M&A premium not yet fully priced across the peer group.",
+  wrong:"Cautionary withdrawn, no bidder emerges, or platinum rolls over below ~$1,700.",
+  watch:"The bidder's identity out of the One Capital process.", hz:"Weeks–months", conf:"High"},
+ {t:"2 · Don't fight the Treasury — US long duration",
+  th:"Treasury buybacks (≥$4bn/op) plus a 'Bessent put' narrative have real buyers returning to the long end; 10y 4.64% with momentum. Positive carry while the policy holds.",
+  wrong:"A tailed 30y auction or Druckenmiller's critique winning the argument — yields gapping back above 5.24% (opinion inputs flagged).",
+  watch:"Every long-bond auction result for the next month.", hz:"Days–weeks", conf:"Medium"},
+ {t:"3 · JSE Financials + rand carry",
+  th:"Soft oil, a dovish-leaning SARB (4-2 hold at 7.00%), rand sub-R16 and Fin15 leading — the financials-over-resources rotation is fundamentally supported, and SA 10y at 8.61% still pays.",
+  wrong:"Oil snapping back, a hot US PCE re-pricing global rates, or SA political noise into the Oct/Nov elections.",
+  watch:"Today's US core PCE, then SA's Sept fuel-price announcement.", hz:"Weeks–months", conf:"Medium"},
+ {t:"4 · Asia AI complex into/through Nvidia",
+  th:"Cheapest implied earnings move in years on the bellwether while KOSPI sits at records — the vol, not the direction, is the mispricing (opinion, via MarketWatch).",
+  wrong:"A guidance beat that still sells off (four straight post-beat declines) — the crowded-long pain trade.",
+  watch:"Tonight's data-centre revenue guidance, then Thu's Samsung/SK Hynix/TSMC-chain reaction.", hz:"Days", conf:"Low"},
+ {t:"5 · UK wealth-management distress & consolidation",
+  th:"EGR Wealth in administration, FCA bans, rising enforcement — distressed client books will change hands cheaply; acquirers with clean compliance win. Also a client-risk radar for Channel Islands fiduciaries.",
+  wrong:"Contained one-off failures rather than a trend; FSCS absorbs quietly.",
+  watch:"Further FCA administrations/enforcement in the next fortnight.", hz:"Months", conf:"Medium"},
+ {t:"6 · PE-into-life-insurance model under strain (US)",
+  th:"Brighthouse doubts are the first crack in the hottest structure in private capital — if annuity-book deals reprice, so does the private-credit fundraising machine built on them.",
+  wrong:"Deal completes on terms; model validated and copied faster.",
+  watch:"Brighthouse deal terms/collapse; rating-agency commentary on PE-owned insurers.", hz:"Weeks–quarters", conf:"Medium"}
+];
+document.getElementById('radar').innerHTML = RADAR.map(r=>
+ `<div class="rcard"><h3>${r.t}</h3>
+  <div class="rrow"><b>Thesis</b>${r.th}</div>
+  <div class="rrow"><b>What would make it wrong</b>${r.wrong}</div>
+  <div class="rrow"><b>The one thing to watch</b>${r.watch}</div>
+  <div class="rfoot"><span>⏱ ${r.hz}</span><span>Confidence: <b>${r.conf}</b></span></div></div>`).join('');
+/* ============ DESK LINGO ============ */
+const LINGO = [
+ {t:"The pain trade",
+  d:"The market move that hurts the largest number of positioned investors — prices often travel toward maximum pain, not maximum logic.",
+  s:"“Everyone's long megacap into Nvidia with vol this cheap — the pain trade is a beat that sells off.”",
+  w:"When a client asks why the market fell on good news, this is usually the grown-up answer: positioning, not fundamentals."},
+ {t:"Bull flattener",
+  d:"Long-term yields falling faster than short-term ones, so the curve flattens while bonds rally. Today's version is policy-made: Treasury buybacks pulling down the long end.",
+  s:"“The Bessent bid has us in a bull flattener — I'd rather own the long bond than fight the Treasury.”",
+  w:"Curve shapes are the language of rate expectations — flatteners/steepeners come up constantly in fund managers' letters you audit."},
+ {t:"The debasement trade",
+  d:"Buying scarce assets — gold, bitcoin, real assets — on the belief that governments will inflate away debt rather than repay it honestly.",
+  s:"“Gold at 4,700 and bitcoin through 80k while Treasury caps yields — that's not risk appetite, that's the debasement trade.”",
+  w:"Explains why gold and crypto now move together on fiscal headlines — useful framing when digital-asset fund clients discuss flows."}
+];
+document.getElementById('lingo').innerHTML = LINGO.map(l=>
+ `<div class="lcard"><h3>${l.t}</h3><div class="def">${l.d}</div><div class="desk">On the desk: ${l.s}</div><div class="why">Why it matters to you: ${l.w}</div></div>`).join('');
+/* ============ TOP 3 READS ============ */
+const READS = [
+ ["Mark Walter's Troubles Are Disrupting the Insurance World's Hottest Trade","WSJ, 26 Aug","https://www.wsj.com/finance/investing/mark-walters-troubles-are-disrupting-the-insurance-worlds-hottest-trade-7aa61866","The clearest write-up yet of the PE-into-life-insurance machine and its first real stress test — this is the structure conversation your PE and fund clients will be having next quarter."],
+ ["Options traders are betting on the quietest Nvidia earnings reaction in years","MarketWatch, 25 Aug","https://www.marketwatch.com/story/options-traders-are-betting-on-the-quietest-nvidia-earnings-reaction-in-years-it-could-be-an-opportunity-for-ai-bulls-91955793","A compact lesson in reading positioning through the options market — exactly the 'what is priced in?' discipline this brief is built around. (opinion)"],
+ ["EU carbon rules threaten to erode SA's export advantage","Moneyweb, 26 Aug","https://www.moneyweb.co.za/moneyweb-podcasts/moneyweb-midday/eu-carbon-rules-threaten-to-erode-sas-export-advantage/","CBAM lands on SA steel, aluminium and cement margins — a slow structural repricing of SA exporters that headline JSE moves won't show you until it's done."]
+];
+document.getElementById('reads').innerHTML = READS.map((r,i)=>
+ `<div class="read"><b>${i+1}.</b> <a href="${r[2]}" target="_blank" rel="noopener">${r[0]}</a><span class="src"> — ${r[1]}</span><p>${r[3]}</p></div>`).join('');
+/* ============ FOOTER ============ */
+document.getElementById('footer').innerHTML = `
+ <h4>Sources used</h4>
+ <p>WSJ/Dow Jones RSS, Bloomberg Economics RSS, Federal Reserve & SEC RSS, BBC Business, FCA, Moneyweb, BusinessTech, CNBC Africa/Reuters syndication, Nikkei/SCMP via Trading Economics summaries, TechNode, Tradingpedia, Hargreaves Lansdown market report, Yahoo Finance quote pages & news, ECB reference rates (Frankfurter), Trading Economics, YCharts, sashares.co.za, Sharenet.</p>
+ <h4>Sources that failed or were unreliable today</h4>
+ <ul>
+  <li>Yahoo chart API blocked for cloud fetches → 30-day sparkline history only available for FX (ECB fixes). Index/commodity sparklines will need the LSEG connector or an alternative history source.</li>
+  <li>Bloomberg Markets RSS (404), CNBC RSS (403), Google News proxies for FT/Reuters/Investegate/BusinessLive/Caixin/Straits Times (robots-blocked), Japan Times (402), SCMP RSS (stale cache), Nikkei Asia RSS (robots-blocked), Yahoo rssindex (stale).</li>
+  <li>Yahoo's BTC/ETH quote pages served stale caches (~$64.7k BTC) — corrected against Yahoo Finance's own 26 Aug price article ($78.6k, 13:25 UK) and two independent newsletters.</li>
+  <li>Hang Seng close: Yahoo (25,653, +0.56%) vs Trading Economics (25,791, +1.1%) disagree; Yahoo used in the dashboard.</li>
+  <li>Platinum: conflicting Yahoo pages ($1,784 vs $1,861); flagged in the dashboard note.</li>
+ </ul>
+ <h4>Newsletters read (5)</h4>
+ <p>Investec The Pulse (26 Aug); Business Day morning (26 Aug); Bloomberg Markets Daily (26 Aug); Sharenet Daily (25 Aug close); Milk Road (25 Aug, opinion). <b>Note:</b> the Gmail label <i>invest-newsletters</i> does not exist yet — senders were searched directly. Creating the label + filters per the setup guide will make this step faster and more complete. FT newsletters: welcome emails only today (Asset Management, White House Watch, Week Ahead) — content starts flowing with the next editions.</p>
+ <h4>Compliance</h4>
+ <p>No restricted list is in force (confirmed by Gerrit, 26 Aug 2026). Everything above is research and news summarisation, not investment advice or a recommendation to buy or sell anything.</p>
+ <div class="disclaimer">Generated 26 Aug 2026, ~16:30 UK, by Claude for the Daily Market Brief project. Edition No. 1 — the format will sharpen with feedback. Numbers are as-at the dates shown; intraday figures move.</div>`;
+</script>
+</body>
+</html>
