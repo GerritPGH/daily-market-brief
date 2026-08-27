@@ -55,7 +55,7 @@ table.dash{width:100%;border-collapse:collapse;background:var(--surface);border:
 .chg.up{color:var(--up)} .chg.dn{color:var(--down)} .chg.na{color:var(--muted);font-weight:400}
 .asof{color:var(--muted);font-size:11.5px;white-space:nowrap}
 .spark{width:110px;height:26px;display:block}
-.sparkna{color:var(--muted);font-size:10.5px}
+.sparkna{color:var(--muted);font-size:10.5px;white-space:nowrap}
 .tblscroll{overflow-x:auto;border-radius:10px}
 .note{color:var(--muted);font-size:12px;margin-top:6px}
 /* chains */
@@ -313,7 +313,9 @@ const ROWS = [
  ["Ethereum","$2,458.76","-0.41","26 Aug 19:52 · Sharenet",[2470,2458.76]]
 ];
 function spark(vals, full){
-  if(!vals) return '<span class="sparkna">building — day 2/30</span>';
+  // A line needs history to mean anything: under 6 points a "trend" is just a
+  // straight segment, which reads as odd — show the build-up state instead.
+  if(!vals || vals.length<6) return '<span class="sparkna">building · day '+(vals?vals.length:2)+'/30</span>';
   const w=110,h=26,p=2;
   const mn=Math.min(...vals), mx=Math.max(...vals), rg=(mx-mn)||1;
   const pts=vals.map((v,i)=>[p+i*(w-2*p)/(vals.length-1), h-p-(v-mn)*(h-2*p)/rg]);
