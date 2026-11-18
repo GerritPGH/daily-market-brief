@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Market Brief &middot; 18 November 2026</title>
+<style>
+
+:root{
+  color-scheme: light;
+  --surface:#fcfcfb; --page:#f9f9f7; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --up:#006300; --down:#d03b3b; --warn:#b97a00; --good:#0ca30c;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s7:#4a3aa7;
+  --chipbg:#f0efec; --accent:#0f4c5c;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --surface:#1a1a19; --page:#0d0d0d; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --up:#0ca30c; --down:#e66767; --warn:#fab219; --good:#0ca30c;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s7:#9085e9;
+    --chipbg:#262624; --accent:#7fc4d8;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;font-size:15.5px}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+a{color:var(--s1);text-decoration:none}
+a:hover{text-decoration:underline}
+header.masthead{border-bottom:3px double var(--axis);padding:18px 0 14px;margin-bottom:22px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:30px;letter-spacing:.5px}
+.mast-date{color:var(--ink2);font-size:14px}
+.mast-sub{color:var(--muted);font-size:12.5px;margin-top:4px;text-transform:uppercase;letter-spacing:1.2px}
+h2{font-family:Georgia,serif;font-size:21px;margin:34px 0 6px;padding-top:10px;border-top:1px solid var(--grid)}
+h2 .kicker{display:block;font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.sectionlede{color:var(--ink2);font-size:13.5px;margin-bottom:14px}
+.lede{font-size:17px;line-height:1.65;font-family:Georgia,serif}
+.lede b{font-weight:700}
+.world{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:12px}
+.wcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.wcard h3{font-size:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tone{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--chipbg)}
+.tone.on{color:var(--up)} .tone.off{color:var(--down)} .tone.mix{color:var(--warn)}
+.wcard p{font-size:13px;color:var(--ink2)}
+.wcard .wnum{font-size:12.5px;margin-top:7px;color:var(--muted)}
+table.dash{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:13.5px}
+.dash th{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid);font-weight:600}
+.dash td{padding:6px 10px;border-bottom:1px solid var(--grid);vertical-align:middle}
+.dash tr:last-child td{border-bottom:none}
+.dash td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.dash .grp td{background:var(--chipbg);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ink2);padding:5px 10px}
+.chg{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.chg.up{color:var(--up)} .chg.dn{color:var(--down)} .chg.na{color:var(--muted);font-weight:400}
+.asof{color:var(--muted);font-size:11.5px}
+.spark{width:110px;height:26px;display:block}
+.sparkna{color:var(--muted);font-size:10.5px;white-space:nowrap}
+.tblscroll{overflow-x:auto;border-radius:10px}
+.note{color:var(--muted);font-size:12px;margin-top:6px}
+.chain{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+.chain h3{font-family:Georgia,serif;font-size:17px;margin-bottom:10px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin-bottom:12px}
+.node{flex:1 1 190px;min-width:170px;background:var(--chipbg);border-radius:8px;padding:9px 11px;font-size:12.8px;line-height:1.45;color:var(--ink)}
+.node .nlab{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:3px}
+.node.spk{border-left:3px solid var(--s2)}
+.node.o1{border-left:3px solid var(--s1)}
+.node.o2{border-left:3px solid var(--s3)}
+.node.o3{border-left:3px solid var(--s7)}
+.arrow{align-self:center;color:var(--axis);font-size:16px}
+.chainmeta{display:grid;gap:6px;font-size:13px;color:var(--ink2)}
+.chainmeta b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.trip{background:var(--chipbg);border-radius:8px;padding:8px 10px}
+.conf{white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--accent);margin-right:3px;vertical-align:middle}
+.dot.f{background:var(--accent)}
+.tabbar{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.tabbar button{background:var(--chipbg);color:var(--ink2);border:1px solid var(--border);border-radius:99px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.tabbar button.act{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tabpane{display:none}
+.tabpane.act{display:block}
+.story{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:9px}
+.story h4{font-size:14.5px;margin-bottom:2px}
+.story .src{color:var(--muted);font-size:12px}
+.story p{font-size:13px;color:var(--ink2);margin-top:4px}
+.story p b{color:var(--ink)}
+.radar{display:grid;gap:10px}
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+.rcard h3{font-size:15px;margin-bottom:4px}
+.rcard .rmeta{font-size:11.5px;color:var(--muted);margin-bottom:6px}
+.rcard p{font-size:13px;color:var(--ink2);margin-bottom:4px}
+.rcard p b{color:var(--ink);font-weight:600}
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:9px}
+.lcard h3{font-size:15.5px;font-family:Georgia,serif;margin-bottom:4px}
+.lcard .def{font-size:13.5px;color:var(--ink2)}
+.lcard .desk{font-size:13.5px;margin-top:6px;font-style:italic}
+.lcard .why{font-size:12.5px;color:var(--muted);margin-top:5px}
+.recap{background:var(--chipbg);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--ink2)}
+.read{margin-bottom:12px}
+.read p{font-size:13px;color:var(--ink2)}
+.cal{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cal .crow{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--grid);font-size:13.5px}
+.cal .crow:last-child{border-bottom:none}
+.cal .cwhen{flex:0 0 118px;font-weight:600;font-size:12.5px;color:var(--accent)}
+.cal .crow p{color:var(--ink2)}
+footer{margin-top:40px;border-top:3px double var(--axis);padding-top:16px;font-size:12.5px;color:var(--ink2)}
+footer h4{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:12px 0 4px}
+footer ul{margin-left:18px}
+footer li{margin-bottom:4px}
+.op{color:var(--warn);font-size:11px;font-weight:600}
+@media(max-width:640px){ .flow{flex-direction:column} .arrow{transform:rotate(90deg);align-self:flex-start;margin-left:12px} }
+.listen{display:none;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:14px 0 4px}
+.listen.ready{display:flex}
+.lbtn{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.lbtn svg{width:18px;height:18px;fill:currentColor}
+.lmain{flex:1 1 auto;min-width:0}
+.ltitle{font-size:13px;font-weight:600;margin-bottom:1px}
+.lmeta{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lbar{margin-top:6px;height:5px;border-radius:99px;background:var(--chipbg);cursor:pointer;position:relative}
+.lfill{height:100%;width:0%;border-radius:99px;background:var(--accent)}
+.lspeed{flex:0 0 auto;background:var(--chipbg);color:var(--ink2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="mast-top">
+    <h1>Daily Market Brief</h1>
+    <div class="mast-date">Wednesday, 18 November 2026 &middot; Edition No. 61</div>
+  </div>
+  <div class="mast-sub">Asia &middot; United Kingdom &middot; South Africa &middot; United States &nbsp;|&nbsp; Prepared for Gerrit Heyneke</div>
+
+  <div class="listen" id="listen">
+    <button class="lbtn" id="lbtn" aria-label="Listen to this brief">
+      <svg id="lico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="lico-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="lmain">
+      <div class="ltitle">Listen to this brief</div>
+      <div class="lmeta" id="lmeta">Read by Emma &middot; &mdash;</div>
+      <div class="lbar" id="lbar"><div class="lfill" id="lfill"></div></div>
+    </div>
+    <button class="lspeed" id="lspeed" aria-label="Playback speed">1&times;</button>
+    <audio id="laudio" preload="metadata" src="brief-2026-11-18.mp3"></audio>
+  </div>
+
+</header>
+<section>
+  <h2><span class="kicker">Section 1</span>What matters today</h2>
+  <p class="lede">Nvidia passed its first test without Jensen Huang, and the market barely clapped. Third-quarter revenue was <b>$115.8bn</b>, up 103% on the year, and the company guided to <b>$130bn</b> for the current quarter (Nvidia). The outlook assumes no data-centre revenue from China. The shares rose about 3&ndash;4% after hours, having closed 0.44% lower (CappNotes; FT). The board says Huang will not return, even though he has offered to (FT). Before the print, the tape was weak. The S&amp;P 500 fell <b>1.03%</b> to 7,340.53, the Dow lost 848 points and the VIX rose 11% to 25.46. Software led the losses, with Salesforce down 9.45% (CappNotes). St Louis Fed president Musalem said several rate rises may be needed before spring (WSJ), and gold fell through $3,800 this morning (Moneyweb; TE). The new US chip-licence rule has started to bite in South-East Asia. Five banks turned down a $480m GPU loan for a Malaysian data centre built for ByteDance (Bloomberg via Seoul Economic Daily), and Malaysian data-centre shares fell by up to 20% (Reuters). Anthropic prices its IPO tonight, at or above the top of its $70&ndash;78 range and with a $90.4bn raise, and trades on Thursday (Bloomberg). In the Gulf, a projectile hit an LPG tanker in the Strait of Hormuz and its crew abandoned ship (Baird Maritime), after Iran declared civilian infrastructure near US bases &ldquo;dual-use&rdquo; (Bloomberg). At home, the All Share fell 0.82% and Sasol 7.76% (Sharenet); the SARB decides tomorrow. UK CPI is out at 07:00.</p>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 2</span>World at a glance</h2>
+  <p class="sectionlede">One line per market, and the tone the tape is setting this morning.</p>
+  <div class="world">
+    <div class="wcard">
+      <h3>Asia <span class="tone off">Chip curbs bite, India holds</span></h3>
+      <p>KOSPI fell 2.59% to 4,968.48 and the Nikkei 1.34% to 58,860.43 (TE). Malaysia&rsquo;s data-centre names fell hardest on the US licence rule: MN Holdings &minus;19.6% to RM2.70, and the KLCI &minus;0.81% to 1,575.15 (Malay Mail). Alibaba fell 5% and SMIC rose 7% (Reuters). The Nifty rose 0.38% to 25,387.40, and Nifty Bank hit a record (Business Standard). This morning KOSPI is +0.98% and the Nikkei +0.36% (TE; FT).</p>
+      <div class="wnum">Nikkei 58,860 <span class="chg dn">&minus;1.34%</span> &middot; KOSPI 4,968 <span class="chg dn">&minus;2.59%</span> &middot; Nifty 25,387 <span class="chg up">+0.38%</span></div>
+    </div>
+    <div class="wcard">
+      <h3>United Kingdom <span class="tone off">Broad sell-off, CPI at 07:00</span></h3>
+      <p>The FTSE 100 fell about 1.76% to 10,690 and the Eurofirst 300 1.78% (FT panel). The ten-year gilt rose 2bp to 5.37% and the thirty-year is at 5.82% (TE). Retail investors are buying long gilts above 5% for the tax-free capital gain (Bloomberg). KPMG says it has completed its first AI-based audit of a UK-listed company (FT). October CPI comes out at 07:00.</p>
+      <div class="wnum">FTSE 100 10,690 <span class="chg dn">&minus;1.76%</span> &middot; 10y 5.37% <span class="chg dn">+2bp</span> &middot; GBP/USD 1.3191 <span class="chg dn">&minus;0.05%</span></div>
+    </div>
+    <div class="wcard">
+      <h3>South Africa <span class="tone mix">Sasol sold, banks steady, SARB tomorrow</span></h3>
+      <p>The All Share fell 0.82% to 110,616.44. Resources fell 1.45% and chemicals 6.52%, with Sasol down 7.76% to R223. Banks rose 0.32% after Monday&rsquo;s 3% fall (Sharenet). Vukile raised R7.3bn at R24.37 a share to buy an R16bn Old Mutual mall portfolio (Investec; Business Day). The ten-year yield rose 5.5bp to 8.77% (TE). Economists are split on Thursday&rsquo;s SARB decision (BusinessTech).</p>
+      <div class="wnum">ALSI 110,616 <span class="chg dn">&minus;0.82%</span> &middot; USD/ZAR 16.933 <span class="chg up">&minus;0.06%</span> &middot; SA 10y 8.77% <span class="chg dn">+5.5bp</span></div>
+    </div>
+    <div class="wcard">
+      <h3>United States <span class="tone off">Fourth down day; Nvidia beat</span></h3>
+      <p>The S&amp;P 500 fell 1.03% and the Dow 1.64%, while the Nasdaq 100 lost only 0.72% (CappNotes). Software sold off: Salesforce &minus;9.45%, Intuit &minus;7.17%, ServiceNow &minus;6.51%. Two-year yields fell 3bp to 4.80% even as Musalem talked of more rate rises. Import prices rose 1.1% in October against 0.7% expected (WSJ). After the close, Nvidia beat and guided above consensus, and its shares rose about 3&ndash;4%.</p>
+      <div class="wnum">S&amp;P 500 7,341 <span class="chg dn">&minus;1.03%</span> &middot; US 2y 4.80% <span class="chg up">&minus;3bp</span> &middot; VIX 25.46 <span class="chg dn">+11.13%</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 3</span>Dashboard</h2>
+  <p class="sectionlede">Every level dated and sourced. Sparklines are 30 days of this project&rsquo;s own rolling history file; a row draws one only once it has at least six points.</p>
+  <div class="tblscroll">
+    <table class="dash">
+      <thead><tr><th>Instrument</th><th style="text-align:right">Level</th><th style="text-align:right">1-day</th><th>30-day</th><th>As at / source</th></tr></thead>
+      <tbody id="dashbody"></tbody>
+    </table>
+  </div>
+  <p class="note">Levels are Tuesday 17 November closes unless marked. At 05:29 GMT this morning (FT): Nikkei 59,071 (+0.36%), Hang Seng 23,261 (&minus;1.05%), Brent 92.78 (&minus;0.39%), Comex gold 3,780.10 (&minus;2.04%), copper 5.98, GBP/USD 1.3197, EUR/USD 1.0989, USD/JPY 159.13. Ten-year yields: US 5.093%, UK 5.391%, JGB 2.851%, Bund 3.374%. On TE&rsquo;s live quotes, gold is 3,778.98 (&minus;1.83%) and KOSPI 5,017.12 (+0.98%). Bitcoin was $64,621 at 06:38 GMT (blockchain.info). <b>FTSE 100:</b> no dated close report could be found (Share Talk&rsquo;s home page is stale). The row uses the FT&rsquo;s post-close panel and TE&rsquo;s table (10,690, &minus;1.76%), rounded to the point. Sharenet&rsquo;s 18:33 print was 10,697.27. <b>FTSE 250:</b> n/a, with no row stored. <b>Conflicts:</b> TE&rsquo;s S&amp;P page implies a previous close of 7,427.65, which does not reconcile with the stored 7,416.59, so the row uses CappNotes and Bloomberg. VIX is +11.13% computed from the stored series; Cboe&rsquo;s JSON prints +10.02%. <b>Single-source rows:</b> Shanghai, Straits Times, Nifty, UK thirty-year and SA ten-year. TE&rsquo;s crypto table did not render, so bitcoin and ether are cross-checked against Sharenet and CappNotes.</p>
+</section>
+<section>
+  <h2><span class="kicker">Section 4</span>Connections Engine</h2>
+  <p class="sectionlede">Three cards: two new chains, and one open since August that settled overnight. Each is a hypothesis, not a forecast, and each has a dated number that settles it.</p>
+  <div id="chains"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 5</span>The four markets</h2>
+  <div class="tabbar" id="tabbar">
+    <button class="act" data-t="asia">Asia</button>
+    <button data-t="uk">United Kingdom</button>
+    <button data-t="sa">South Africa</button>
+    <button data-t="usa">United States</button>
+  </div>
+  <div class="tabpane act" id="t-asia"></div>
+  <div class="tabpane" id="t-uk"></div>
+  <div class="tabpane" id="t-sa"></div>
+  <div class="tabpane" id="t-usa"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 6</span>Opportunity Radar</h2>
+  <p class="sectionlede">Five situations worth research time, ranked by how big the move is compared with the change in the facts behind it. These are research ideas, not recommendations. No restricted list is in force.</p>
+  <div class="radar" id="radar"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 7</span>Desk Lingo</h2>
+  <p class="sectionlede">Three terms a PM would actually use today, drawn from what is in this brief.</p>
+  <div id="lingo"></div>
+  <div class="recap" id="recap"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 8</span>Top three reads</h2>
+  <div id="reads"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 9</span>The next forty-eight hours</h2>
+  <div class="cal" id="cal"></div>
+</section>
+
+<footer id="footer"></footer>
+
+</div>
+<script>
+/* ============ LISTEN PLAYER ============ */
+(function(){
+  const a=document.getElementById('laudio'), box=document.getElementById('listen'),
+        btn=document.getElementById('lbtn'), ip=document.getElementById('lico-play'),
+        iq=document.getElementById('lico-pause'), meta=document.getElementById('lmeta'),
+        bar=document.getElementById('lbar'), fill=document.getElementById('lfill'),
+        spd=document.getElementById('lspeed');
+  const fmt=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+  const speeds=[1,1.25,1.5]; let si=0;
+  a.addEventListener('loadedmetadata',()=>{ box.classList.add('ready'); meta.textContent='Read by Emma · '+fmt(a.duration); });
+  a.addEventListener('error',()=>box.classList.remove('ready'));
+  btn.addEventListener('click',()=>{ a.paused?a.play():a.pause(); });
+  a.addEventListener('play',()=>{ip.style.display='none';iq.style.display='block';});
+  a.addEventListener('pause',()=>{ip.style.display='block';iq.style.display='none';});
+  a.addEventListener('timeupdate',()=>{
+    if(!a.duration)return;
+    fill.style.width=(a.currentTime/a.duration*100)+'%';
+    meta.textContent='Read by Emma · '+fmt(a.currentTime)+' / '+fmt(a.duration);
+  });
+  a.addEventListener('ended',()=>{ip.style.display='block';iq.style.display='none';fill.style.width='0%';meta.textContent='Read by Emma · '+fmt(a.duration);});
+  bar.addEventListener('click',e=>{
+    if(!a.duration)return;
+    const r=bar.getBoundingClientRect();
+    a.currentTime=(e.clientX-r.left)/r.width*a.duration;
+  });
+  spd.addEventListener('click',()=>{ si=(si+1)%speeds.length; a.playbackRate=speeds[si]; spd.innerHTML=speeds[si]+'&times;'; });
+})();
+</script>
+<script>
+/* ============ DASHBOARD DATA ============ */
+const HIST = {"S&P 500": [7801.77, 7765.36, 7811.51, 7807.24, 7805.45, 7718.94, 7744.06, 7659.44, 7690.73, 7712.57, 7757.17, 7663.43, 7623.68, 7676.8, 7722.6, 7743.98, 7720.39, 7580.07, 7541.4, 7568.92, 7688.62, 7353.73, 7376.86, 7549.94, 7520.93, 7619.38, 7592.4, 7561.67, 7416.59, 7340.53], "Nasdaq 100": [31160.0, 30725.81, 30883.15, 30665.0, 30569.48, 29950.82, 29935.59, 29187.55, 29529.34, 29490.28, 29823.0, 28958.69, 28957.53, 29273.0, 29651.44, 29813.0, 29403.0, 28384.85, 27989.82, 28180.26, 28437.17, 26629.81, 26989.99, 27907.63, 27740.79, 28374.25, 28289.19, 27943.74, 27197.15, 27001.79], "FTSE 100": [10458.5, 10441.6, 10552.05, 10656.28, 10650.33, 10724.86, 10840.35, 10881.9, 10764.69, 10733.0, 10752.88, 10725.03, 10690.36, 10767.33, 10688.66, 10694.5, 10722.07, 10729.78, 10761.33, 10638.43, 10829.21, 10782.66, 10673.94, 10782.87, 10751.59, 10835.47, 10863.0, 10902.56, 10881.55, 10690.0], "FTSE 250": [23818.74, 24070.2, 24352.14, 24491.37, 24352.14, 24291.62, 24261.14, 24123.75, 24215.33, 24036.75, 23943.88, 24213.78, 24339.19, 24360.77, 24424.77, 24533.9, 24364.76, 24237.39, 24501.25, 24639.26, 24674.16, 24453.36, 24915.69, 24701.98, 24423.93, 24706.34, 24746.65, 24925.04, 24805.41, 24700.06], "JSE All Share": [108881.47, 107104.29, 107109.29, 108524.77, 108759.84, 109408.15, 108515.44, 110171.85, 110934.23, 108994.98, 110399.23, 109657.95, 108525.49, 108020.14, 109130.32, 109820.15, 109759.05, 110038.7, 107621.67, 109527.8, 109275.3, 113286.18, 112739.38, 115037.93, 114693.44, 113449.53, 112894.87, 112387.86, 111525.58, 110616.44], "JSE Top 40": [101162.2, 99394.06, 99406.91, 100764.33, 100963.78, 101562.36, 100698.08, 102392.5, 103230.22, 101266.06, 102553.46, 101739.26, 100543.39, 99990.91, 100977.01, 101609.02, 101566.62, 101875.93, 99412.34, 101438.67, 101192.33, 105225.9, 104713.98, 107087.6, 106738.05, 105558.44, 104981.31, 104486.62, 103628.96, 102752.15], "Nikkei 225": [69306.0, 68808.0, 69030.92, 67592.0, 67777.52, 67744.29, 64425.95, 65324.29, 64916.7, 64075.42, 64621.24, 62907.84, 62693.16, 62189.65, 63268.37, 63954.19, 64659.47, 63290.11, 63081.86, 61425.0, 62188.63, 61077.9, 57434.77, 58775.5, 60459.58, 61248.59, 60819.36, 61142.35, 59662.02, 58860.43], "Hang Seng": [23963.0, 24046.0, 24211.35, 24271.2, 24345.22, 24314.17, 24062.72, 24186.83, 24186.83, 23867.74, 23651.87, 22934.68, 23093.37, 23211.81, 23041.32, 23094.83, 22958.65, 23294.42, 23377.79, 23525.97, 23919.5, 24796.98, 24482.0, 24449.0, 24557.0, 24315.92, 24008.55, 23637.6, 23753.84, 23508.17], "Shanghai Comp": [3861.68, 3765.71, 3813.79, 3795.0, 3800.86, 3767.23, 3707.48, 3716.3, 3730.92, 3735.37, 3715.83, 3658.03, 3690.48, 3697.52, 3662.94, 3681.47, 3651.43, 3599.02, 3632.31, 3608.1, 3686.17, 3689.91, 3649.18, 3660.79, 3663.72, 3680.64, 3655.83, 3634.35, 3602.57, 3584.58], "KOSPI": [6673.37, 6625.93, 6422.13, 5988.41, 6035.35, 6008.81, 5554.22, 5668.05, 5768.01, 5552.74, 5735.66, 5533.77, 5550.3, 5469.47, 5638.34, 6012.44, 5937.66, 5730.74, 5859.08, 5648.79, 5683.8, 5383.8, 5059.69, 5018.85, 5239.13, 5375.36, 5342.73, 5290.53, 5100.5, 4968.48], "Straits Times": [5702.0, 5608.44, 5412.96, 5401.89, 5415.48, 5430.5, 5423.33, 5403.5, 5415.53, 5412.0, 5435.31, 5437.99, 5415.14, 5422.16, 5415.91, 5397.03, 5398.0, 5396.03, 5376.74, 5303.83, 5203.97, 5268.63, 5296.25, 5179.17, 5258.59, 5289.66, 5282.7, 5231.84, 5134.64, 5109.13], "Nifty 50": [22555.75, 22776.1, 22603.05, 22231.8, 22520.0, 22363.35, 22721.95, 22622.7, 22997.35, 23146.15, 22888.95, 22888.95, 22811.35, 22687.65, 22600.0, 22753.2, 22749.75, 22698.85, 22936.75, 23053.1, 23440.8, 23810.85, 24536.6, 24986.4, 25044.65, 25255.05, 25299.35, 25144.3, 25291.1, 25387.4], "USD/ZAR": [16.6359, 16.5168, 16.4962, 16.5294, 16.4609, 16.5701, 16.49, 16.48, 16.4225, 16.3824, 16.3649, 16.5064, 16.5976, 16.6291, 16.6487, 16.6477, 16.6413, 16.6895, 16.6386, 16.6379, 16.4555, 16.4173, 16.5382, 16.4482, 16.3957, 16.5639, 16.715, 16.9635, 16.943, 16.9327], "GBP/USD": [1.3208, 1.3239, 1.3244, 1.3219, 1.3267, 1.3249, 1.3295, 1.3328, 1.3328, 1.3371, 1.3399, 1.3395, 1.3378, 1.3337, 1.3328, 1.3288, 1.3317, 1.3399, 1.3419, 1.3411, 1.35, 1.3459, 1.3385, 1.3416, 1.3423, 1.3307, 1.3256, 1.3227, 1.3198, 1.3191], "GBP/ZAR": [21.9505, 21.9664, 21.8555, 21.8502, 21.8387, 21.9537, 21.9235, 21.9645, 21.8879, 21.9049, 21.928, 22.1268, 22.188, 22.196, 22.19, 22.121, 22.161, 22.362, 22.328, 22.313, 22.215, 22.096, 22.136, 22.067, 22.007, 22.042, 22.157, 22.437, 22.362, 22.336], "USD/JPY": [158.1, 158.04, 158.21, 158.26, 158.21, 157.6, 157.86, 158.11, 158.26, 158.13, 157.68, 156.87, 156.93, 157.57, 157.82, 157.96, 158.06, 157.25, 157.9, 158.29, 158.25, 158.46, 158.33, 157.95, 158.18, 159.23, 159.7, 160.0, 159.6, 159.3], "USD/CNY": [6.70089, 6.7034, 6.6937, 6.6966, 6.6927, 6.6925, 6.6898, 6.6862, 6.6807, 6.678, 6.6761, 6.6743, 6.6702, 6.6681, 6.6675, 6.6664, 6.6616, 6.6529, 6.6483, 6.6723, 6.6723, 6.6684, 6.6713, 6.6728, 6.6703, 6.6707, 6.6683, 6.6719, 6.6665, 6.6661], "EUR/USD": [1.1202, 1.1226, 1.1209, 1.1173, 1.1207, 1.1231, 1.1233, 1.123, 1.1227, 1.1225, 1.1245, 1.1214, 1.1217, 1.1167, 1.115, 1.1133, 1.113, 1.1172, 1.1216, 1.1179, 1.1267, 1.1224, 1.1165, 1.1193, 1.1214, 1.1127, 1.1081, 1.1052, 1.1014, 1.0989], "US 2y yield": [4.791, 4.777, 4.751, 4.793, 4.78, 4.8, 4.81, 4.745, 4.721, 4.772, 4.79, 4.81, 4.646, 4.686, 4.712, 4.73, 4.71, 4.61, 4.56, 4.59, 4.61, 4.58, 4.46, 4.51, 4.56, 4.73, 4.88, 4.88, 4.83, 4.8], "US 10y yield": [5.307, 5.294, 5.223, 5.244, 5.192, 5.22, 5.19, 5.09, 5.089, 5.142, 5.115, 5.123, 4.957, 4.999, 4.99, 4.986, 5.02, 4.98, 4.94, 4.91, 4.95, 4.9, 4.84, 4.86, 4.88, 4.98, 5.1, 5.15, 5.12, 5.1], "US 30y yield": [5.647, 5.671, 5.602, 5.602, 5.56, 5.56, 5.52, 5.43, 5.435, 5.476, 5.423, 5.413, 5.29, 5.312, 5.297, 5.31, 5.36, 5.32, 5.31, 5.28, 5.32, 5.28, 5.25, 5.26, 5.26, 5.35, 5.43, 5.47, 5.46, 5.46], "UK 10y gilt": [5.434, 5.423, 5.413, 5.388, 5.43, 5.43, 5.38, 5.38, 5.44, 5.41, 5.38, 5.34, 5.37, 5.36, 5.353, 5.325, 5.3, 5.29, 5.2, 5.248, 5.137, 5.136, 5.156, 5.14, 5.228, 5.222, 5.31, 5.34, 5.35, 5.372], "UK 30y gilt": [5.98, 5.94, 5.9419, 5.93, 5.924, 5.91, 5.85, 5.86, 5.9, 5.883, 5.847, 5.783, 5.73, 5.75, 5.747, 5.75, 5.71, 5.71, 5.63, 5.67, 5.585, 5.595, 5.62, 5.6, 5.66, 5.64, 5.72, 5.79, 5.8, 5.82], "SA 10y bond": [9.0, 9.025, 8.955, 8.97, 8.915, 8.91, 8.865, 8.855, 8.89, 8.89, 8.71, 8.765, 8.785, 8.785, 8.73, 8.73, 8.7, 8.73, 8.675, 8.605, 8.495, 8.42, 8.44, 8.41, 8.505, 8.61, 8.64, 8.68, 8.715, 8.77], "Japan 10y JGB": [3.095, 3.08, 3.035, 3.016, 3.003, 3.016, 2.935, 2.943, 2.93, 2.912, 2.9, 2.9, 2.88, 2.796, 2.787, 2.79, 2.83, 2.84, 2.77, 2.772, 2.82, 2.76, 2.64, 2.68, 2.695, 2.791, 2.807, 2.874, 2.885, 2.867], "Fed funds": [3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88], "BoE Bank Rate": [3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0], "SARB repo": [7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25], "BoJ policy rate": [1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25], "VIX": [15.08, 15.41, 14.84, 15.21, 15.27, 16.87, 16.46, 19.99, 18.44, 17.31, 16.68, 19.03, 19.45, 18.39, 17.52, 16.91, 17.2, 19.42, 21.15, 20.83, 16.61, 28.18, 25.64, 19.92, 19.46, 17.49, 18.7, 19.3, 22.91, 25.46], "Brent": [102.593, 103.092, 103.35, 106.65, 105.7, 106.06, 105.92, 109.86, 109.55, 108.79, 108.82, 113.17, 116.72, 115.81, 113.88, 115.32, 114.88, 113.43, 104.77, 103.6, 94.62, 98.29, 98.32, 92.57, 91.49, 92.76, 95.82, 95.84, 92.44, 93.14], "Gold": [4128.87, 4201.27, 4187.71, 4194.81, 4156.85, 4105.6, 4171.06, 4166.39, 4140.9, 4124.73, 4141.1, 4024.82, 3993.96, 4016.72, 4060.2, 4067.78, 4021.31, 3875.84, 3956.9, 3931.68, 4060.3, 4087.7, 4070.41, 4140.5, 4032.38, 3987.84, 3876.43, 3881.75, 3856.68, 3849.49], "Silver": [59.84, 60.302, 60.896, 60.62, 59.19, 55.66, 57.4, 56.99, 57.083, 57.97, 57.96, 54.59, 53.875, 53.961, 54.41, 53.95, 52.14, 48.9, 50.68, 49.79, 52.26, 51.78, 51.88, 53.4, 51.5, 51.66, 50.02, 48.72, 46.94, 47.34], "Platinum": [1668.0, 1683.6, 1702.9, 1707.1, 1668.5, 1605.8, 1621.5, 1633.1, 1648.2, 1656.5, 1635.9, 1576.9, 1562.4, 1545.4, 1537.2, 1539.8, 1493.3, 1436.0, 1454.4, 1430.0, 1498.2, 1522.4, 1536.9, 1561.7, 1538.4, 1538.5, 1520.4, 1489.7, 1448.5, 1426.5], "Palladium": [1121.5, 1157.5, 1154.5, 1147.5, 1126.0, 1096.5, 1128.5, 1118.5, 1123.0, 1112.5, 1090.0, 1056.5, 1048.0, 1051.25, 1028.5, 1019.0, 1004.5, 988.0, 968.5, 933.5, 1004.0, 1044.5, 1017.0, 1021.5, 1021.0, 1059.5, 1022.5, 1007.5, 974.0, 976.5], "Copper": [6.6614, 6.598, 6.6872, 6.7, 6.7, 6.61, 6.51, 6.53, 6.542, 6.57, 6.54, 6.36, 6.476, 6.513, 6.63, 6.65, 6.58, 6.46, 6.54, 6.38, 6.4, 6.25, 6.22, 6.33, 6.22, 6.28, 6.18, 6.08, 6.0, 5.98], "Iron ore": [91.13, 90.98, 90.68, 90.83, 90.72, 90.74, 90.57, 90.9, 90.95, 90.86, 90.85, 90.73, 90.83, 90.78, 90.7, 90.7, 90.71, 90.71, 91.25, 91.03, 91.95, 93.12, 92.7, 92.71, 92.54, 92.15, 91.6, 91.48, 90.91, 90.62], "Bitcoin": [83007.0, 81875.0, 83602.0, 82937.0, 83365.0, 80951.0, 81982.0, 82539.0, 81974.0, 82681.0, 82805.0, 82705.11, 79944.0, 79600.0, 80844.0, 80308.0, 78427.0, 78275.0, 76480.0, 77582.0, 80321.0, 75580.0, 74186.0, 74668.0, 73759.0, 74406.0, 71503.0, 68237.0, 65232.0, 64211], "Ethereum": [2699.58, 2574.03, 2476.77, 2541.69, 2496.69, 2508.64, 2432.72, 2418.49, 2409.16, 2442.69, 2442.05, 2379.93, 2314.22, 2310.0, 2352.37, 2325.73, 2243.75, 2289.06, 2245.01, 2285.85, 2418.38, 2220.86, 2119.62, 2115.68, 2064.06, 2091.43, 2015.57, 1937.26, 1821.37, 1786.65]};
+const ROWS = [["Equities"], ["S&P 500", "7,340.53", "-1.03", "CappNotes close 17/11 (Bloomberg 7,340.89; FT 7,341)", "S&P 500"], ["Nasdaq 100", "27,001.79", "-0.72", "CappNotes close 17/11 (FT 27,002)", "Nasdaq 100"], ["FTSE 100", "10,690", "-1.76", "FT panel 05:29 GMT 18/11 and TE world table (whole points; no dated close report found)", "FTSE 100"], ["FTSE 250", "n/a", "n/a", "No dated close found for 17/11; no row appended", "FTSE 250"], ["JSE All Share", "110,616.44", "-0.82", "Sharenet Daily 17/11 close (17:06)", "JSE All Share"], ["JSE Top 40", "102,752.15", "-0.85", "Sharenet Daily 17/11 close (17:06)", "JSE Top 40"], ["Nikkei 225", "58,860.43", "-1.34", "TE previous close 17/11 (Sharenet 58,860.43; FT Asia 58,860)", "Nikkei 225"], ["Hang Seng", "23,508.17", "-1.03", "TE previous close 17/11 (FT Asia 23,508)", "Hang Seng"], ["Shanghai Comp", "3,584.58", "-0.50", "TE previous close 17/11; single source (Sharenet 3,579.79 08:53 intraday)", "Shanghai Comp"], ["KOSPI", "4,968.48", "-2.59", "TE previous close 17/11 (Bloomberg Markets Daily 4,968.48)", "KOSPI"], ["Straits Times", "5,109.13", "-0.50", "TE previous close 17/11; single source", "Straits Times"], ["Nifty 50", "25,387.40", "+0.38", "TE close 17/11; single source (Sensex 82,532.19 +0.52%, TE)", "Nifty 50"], ["Currencies"], ["USD/ZAR", "16.9327", "-0.06", "ECB reference 17/11 via Frankfurter", "USD/ZAR"], ["GBP/USD", "1.3191", "-0.05", "ECB reference 17/11 via Frankfurter", "GBP/USD"], ["GBP/ZAR", "22.3360", "-0.12", "ECB reference 17/11 via Frankfurter", "GBP/ZAR"], ["USD/JPY", "159.30", "-0.19", "ECB reference 17/11 via Frankfurter", "USD/JPY"], ["USD/CNY", "6.6661", "-0.01", "ECB reference 17/11 via Frankfurter", "USD/CNY"], ["EUR/USD", "1.0989", "-0.23", "ECB reference 17/11 via Frankfurter (inverted USD/EUR 0.91000)", "EUR/USD"], ["Rates"], ["US 2-year", "4.80%", "-3.0bp", "CappNotes close 17/11 (TE 4.80 18/11)", "US 2y yield"], ["US 10-year", "5.10%", "-2.0bp", "CappNotes close 17/11 (FT 5.103 06:14 SGT 18/11)", "US 10y yield"], ["US 30-year", "5.46%", "+0.0bp", "CappNotes close 17/11 (TE 5.44 18/11)", "US 30y yield"], ["UK 10-year gilt", "5.37%", "+2.2bp", "TE 17/11 5.3722 (FT 5.391 05:29 GMT 18/11)", "UK 10y gilt"], ["UK 30-year gilt", "5.82%", "+2.0bp", "TE UK yields table 17/11; single source", "UK 30y gilt"], ["SA 10-year", "8.77%", "+5.5bp", "TE 17/11; single source", "SA 10y bond"], ["Japan 10-year", "2.867%", "-1.8bp", "FT Asia panel 06:14 SGT 18/11, before Tokyo open (TE ~2.875)", "Japan 10y JGB"], ["Fed funds", "3.88%", "+0.0bp", "NY Fed EFFR 16/11", "Fed funds"], ["BoE Bank Rate", "4.00%", "+0.0bp", "BoE 5/11 (unchanged since)", "BoE Bank Rate"], ["SARB repo", "7.25%", "+0.0bp", "SARB MPC 23/9 (unchanged; decision Thu 19 Nov)", "SARB repo"], ["BoJ policy rate", "1.25%", "+0.0bp", "BoJ 30/10 (unchanged)", "BoJ policy rate"], ["VIX", "25.46", "+11.13", "Cboe delayed quote 17/11 close (CappNotes 25.46)", "VIX"], ["Commodities"], ["Brent", "93.14", "+0.76", "Front-month settle 17/11 (CappNotes; Sharenet 93.25)", "Brent"], ["Gold", "3,849.49", "-0.19", "TE previous close 17/11 spot (Comex 3,851.90 CappNotes; Sharenet 3,863.09)", "Gold"], ["Silver", "47.34", "+0.85", "TE 17/11, implied from 18/11 quote and change (Sharenet 47.49)", "Silver"], ["Platinum", "1,426.50", "-1.52", "TE previous close 17/11 (Sharenet 1,425.35 19:57 SAST)", "Platinum"], ["Palladium", "976.50", "+0.26", "TE previous close 17/11 (Sharenet 976.50 19:57 SAST)", "Palladium"], ["Copper", "5.98", "-0.33", "FT panel 18/11 $/lb (TE implied 5.975)", "Copper"], ["Iron ore", "90.62", "-0.32", "TE 17/11, 62% Fe CFR China", "Iron ore"], ["Digital assets"], ["Bitcoin", "64,211", "-1.57", "intraday: CappNotes ~US close 17/11 (Sharenet 63,816 19:56 SAST; blockchain.info 64,621 06:38 GMT 18/11)", "Bitcoin"], ["Ethereum", "1,786.65", "-1.91", "intraday: Sharenet 19:56 SAST 17/11 (CappNotes ~1,800)", "Ethereum"]];
+
+function sparkHtml(name){
+  const h=HIST[name];
+  if(!h||h.length<6){ const n=h?h.length:0; return '<span class="sparkna">building &middot; day '+n+'/30</span>'; }
+  const w=110,ht=26,pad=3;
+  const mn=Math.min.apply(null,h), mx=Math.max.apply(null,h), rng=(mx-mn)||1;
+  const pts=h.map((v,i)=>{
+    const x=pad+i*(w-2*pad)/(h.length-1);
+    const y=ht-pad-((v-mn)/rng)*(ht-2*pad);
+    return x.toFixed(1)+','+y.toFixed(1);
+  }).join(' ');
+  const up=h[h.length-1]>=h[0];
+  const col=up?'var(--up)':'var(--down)';
+  const last=pts.split(' ').pop().split(',');
+  return '<svg class="spark" viewBox="0 0 '+w+' '+ht+'" preserveAspectRatio="none" aria-hidden="true">'+
+    '<polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>'+
+    '<circle cx="'+last[0]+'" cy="'+last[1]+'" r="1.8" fill="'+col+'"/></svg>';
+}
+
+(function(){
+  const b=document.getElementById('dashbody');
+  let html='';
+  ROWS.forEach(r=>{
+    if(r.length===1){ html+='<tr class="grp"><td colspan="5">'+r[0]+'</td></tr>'; return; }
+    const raw=r[2]; let cls='na', txt=raw;
+    if(raw!=='n/a'){
+      const num=parseFloat(raw);
+      cls = num>0?'up':(num<0?'dn':'na');
+      txt = (raw.indexOf('bp')>-1) ? raw : (raw+'%');
+      if(num>0 && txt[0]!=='+') txt='+'+txt;
+      txt = txt.replace('-','−');
+    }
+    html+='<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td>'+
+      '<td class="num"><span class="chg '+cls+'">'+txt+'</span></td>'+
+      '<td>'+sparkHtml(r[4])+'</td>'+
+      '<td class="asof">'+r[3]+'</td></tr>';
+  });
+  b.innerHTML=html;
+})();
+
+
+/* ============ CONNECTIONS ENGINE ============ */
+const CHAINS = [{"t": "New: Washington&rsquo;s licence rule becomes a credit problem for Malaysia&rsquo;s data-centre build", "labs": ["Spark", "Anchor tenant goes", "Lenders walk", "Pipeline de-rates"], "s": "The US now requires licences for advanced-chip shipments to Malaysia, Singapore and Thailand. It also sets new rules for overseas data centres that supply large volumes of compute to China-headquartered firms; US-owned sites are excluded (Reuters, 17/11). A day later, five banks declined a $480m loan to Aolani Cloud to buy GPUs for a Malaysian data centre whose chips were meant for ByteDance (Bloomberg via Seoul Economic Daily, 18/11).", "n": ["First order: data centres in Johor and Thailand that were built around Chinese tenants lose their anchor customer, or must prove under know-your-customer rules that the compute does not reach China.", "Second order: without a creditworthy tenant, GPU and construction lending stops. Lenders are re-assessing &ldquo;billions&rdquo; of closed and in-progress AI loans. Bain-backed Bridge Data Centres raised $2.8bn last year from JPMorgan, Citi, Deutsche Bank, MUFG and SMBC, with ByteDance as its main tenant.", "Third order: Malaysia&rsquo;s RM385.7bn ($95bn) of data-centre investment approved since 2021 is re-priced. MN Holdings fell 19.6% to RM2.70 and YTL Power about 10% (Malay Mail; Reuters). Private-credit and infrastructure funds holding Asian data-centre loans face this question at their 31 December marks."], "x": "Bursa data-centre contractors and power names against the KLCI over weeks. Over months: Asian infrastructure and private-credit funds with data-centre loans, including Channel Islands-administered credit vehicles, where the valuation and going-concern work happens.", "trip": "MN Holdings (Bursa) against the FBM KLCI, closes on Fri 4 December. START 17/11: MN Holdings RM2.70, KLCI 1,575.15 (Malay Mail). MN Holdings a further &ge;10pp behind the KLCI confirms.", "kill": "MN Holdings &ge;10pp ahead of the KLCI by 4 December. That would show the market believes the sites simply re-tenant.", "conf": 2, "weak": "Re-tenanting. US-owned operators are exempt, and Bridge has already replaced Megaspeed with Zenlayer once, in May. Capacity may change hands without the loans breaking. A relief rally after Nvidia is also expected in Kuala Lumpur (Business Today)."}, {"t": "New: a struck LPG carrier and a &lsquo;dual-use&rsquo; doctrine become India&rsquo;s cooking-gas bill", "labs": ["Spark", "Gas carriers", "Saudi price", "India pays"], "s": "The Panama-flagged LPG tanker <i>Tara Gas</i> was hit by a projectile about seven nautical miles off Khasab in the Strait of Hormuz on Tuesday. The crew abandoned ship and one is missing, and UKMTO reported a second attack (Baird Maritime, 17/11). Hours earlier, Iran&rsquo;s speaker Ghalibaf declared that &ldquo;any dam, port, or power plant near a US or Israeli base is dual-use&rdquo;, and the US then struck Qeshm Island (Bloomberg, 17/11).", "n": ["First order: very large gas carriers loading at Ras Tanura, Ras Laffan and Ruwais all pass the same strait, so owners and underwriters re-price war risk on LPG cargoes, not only on crude.", "Second order: delivered Gulf LPG into Asia costs more just as winter demand peaks. Aramco had already raised its November propane contract price to $720/t (MarketScreener, 29/10).", "Third order: India caps household cylinder prices, so its state oil-marketing companies (IOC, BPCL, HPCL) absorb the gap as under-recoveries, and the bill eventually lands on the budget. Indian buyers are already contracting US LPG for 2027 (Business Recorder), and Japan is proposing an &lsquo;Asian IEA&rsquo; for strategic stocks (FT)."], "x": "Indian oil-marketing company shares and India&rsquo;s fiscal subsidy line over weeks. Japanese and Korean LPG importers. Second-order support for US LPG export terminals.", "trip": "Saudi Aramco&rsquo;s December propane contract price, announced around Mon 30 November. &ge;$760/t (+5.6% on November&rsquo;s $720) confirms.", "kill": "December propane CP &le;$700/t.", "conf": 1, "weak": "The contract price follows crude and the season as much as Hormuz. Brent is about $93, well below its October highs, with 2027 surplus forecasts (WSJ), so a cut would kill the chain and a rise could have causes other than Hormuz."}, {"t": "Settled: Nvidia&rsquo;s China line &mdash; killed on its own kill line (open since 27 August)", "labs": ["The thesis", "What printed", "Verdict", "What it taught"], "s": "Since August this chain has argued that allocation politics around China&rsquo;s H200 access would show up as a China revenue line in Nvidia&rsquo;s third-quarter results. The test was simple: a China H200 line confirms, and no China revenue line kills.", "n": ["The release gives revenue of $115.8bn and data-centre revenue of $107.6bn, but no regional breakdown and no mention of the H200. It says Nvidia &ldquo;is not assuming any Data Center compute revenue from China in its outlook&rdquo; (Nvidia, 17/11).", "Killed. The spark was real (curbs, the Megaspeed case, a new national-security oversight committee on the board), but the mechanism never reached a reported number.", "The China exposure ran through routing, not a reported line. Nvidia booked $104bn through its Singapore subsidiary in 2025, up 72%, and then stopped disclosing Singapore (FT, 18/11). The observable now is licence data and South-East Asian credit, which is today&rsquo;s first chain."], "x": "Closed. Any China upside in Nvidia&rsquo;s guide is now zero by assumption, so the open risk is how much revenue was routed through Singapore.", "trip": "Printed 17 November after the US close: no China line. The outlook explicitly excludes China data-centre compute.", "kill": "Met. The chain is closed and kept on file so that the thesis is not re-run.", "conf": 1, "weak": "&mdash;"}];
+(function(){
+  const box=document.getElementById('chains');
+  const clab=['low','medium','high'];
+  let html='';
+  CHAINS.forEach(c=>{
+    const nodes=[c.s].concat(c.n);
+    let flow='';
+    nodes.forEach((n,i)=>{
+      if(i) flow+='<div class="arrow">&#10230;</div>';
+      const cls=['spk','o1','o2','o3'][i];
+      flow+='<div class="node '+cls+'"><div class="nlab">'+c.labs[i]+'</div>'+n+'</div>';
+    });
+    let dots='';
+    for(let i=0;i<3;i++) dots+='<span class="dot'+(i<c.conf?' f':'')+'"></span>';
+    html+='<div class="chain"><h3>'+c.t+'</h3><div class="flow">'+flow+'</div>'+
+      '<div class="chainmeta">'+
+      '<div><b>Market expression</b>'+c.x+'</div>'+
+      '<div class="trip"><b>Tripwire</b>'+c.trip+'</div>'+
+      '<div><b>Kill line</b>'+c.kill+'</div>'+
+      '<div><b>Confidence</b><span class="conf">'+dots+' '+clab[c.conf-1]+'</span> &mdash; weakest link: '+c.weak+'</div>'+
+      '</div></div>';
+  });
+  box.innerHTML=html;
+})();
+
+
+/* ============ FOUR MARKETS ============ */
+const STORIES = {"asia": [["US AI chip curbs threaten South-East Asia&rsquo;s data-centre boom; shares slump", "Reuters via Finwire, 17 Nov", "https://finwire.io/news/stock-markets-news/us-ai-chip-curbs-threaten-southeast-asia-data-centre-boom-shares-slump", "Singapore, Thailand, Malaysia, Indonesia and Brazil are named as an &lsquo;unacceptable risk&rsquo; of diversion. MN Holdings and Critical Holdings fell nearly 20%, YTL Power nearly 10%, Alibaba 5%; SMIC rose 7%. So what: the Johor build that many Asian infrastructure funds own now depends on KYC and licences, and the lenders have already walked from one deal."], ["Nifty Bank extends gains to 11.5% in a month, hits fresh record high", "Business Standard, 17 Nov", "https://www.business-standard.com/markets/news/nifty-bank-extends-gains-to-11-5-in-a-month-hits-fresh-record-high-126111701213_1.html", "Credit growth, better asset quality and returning foreign investors drove the gain. Brokerages put September-quarter profit growth for India Inc at 19&ndash;27%, the best in four years. So what: India is still the market taking the other side of the Korea and Taiwan AI unwind."], ["Sebi may limit margin-funded stock purchases as retail leverage hits record", "Business Standard, 17 Nov", "https://www.business-standard.com/markets/news/sebi-may-limit-margin-funded-stock-purchases-as-retail-leverage-hits-record-126111700421_1.html", "Margin-funded positions are at a record, mostly in small and mid caps. So what: a leverage cap would hit the part of the rally that India feeder funds hold least, and it is a regulatory brake to watch."], ["Japan proposes an &lsquo;Asian IEA&rsquo; for strategic oil stocks", "FT, FirstFT Asia, 18 Nov", "", "Takaichi also offered spare Japanese tanks to store crude for the rest of Asia. So what: it is a policy reply to exactly the Hormuz risk behind today&rsquo;s LPG chain, and it would create new stockpiling demand."], ["KKR chosen as preferred bidder for Ichibanya, Japan&rsquo;s largest curry chain", "Bloomberg Evening Briefing Asia, 17 Nov", "", "A possible take-private worth about &yen;200bn ($1.3bn) by tender offer. So what: Japanese take-privates keep coming despite a yen near 159, and they are a steady source of Asian PE deal flow for Jersey-structured funds."]], "uk": [["KPMG completes its first AI-based audit of a UK-listed company", "FT, FirstFT Europe/Africa, 18 Nov", "", "KPMG says the technology asked &lsquo;better questions&rsquo; than its own accountants about parts of the client&rsquo;s finances and dug deeper into some issues. So what: this goes straight to methodology, inspection evidence and fee conversations at every firm, including yours."], ["UK jobless rate edges lower, adding to inflation concerns", "WSJ, 17 Nov", "https://www.wsj.com/economy/central-banking/u-k-jobless-rate-edges-lower-as-labor-market-shows-resilience-6adc464b", "Unemployment fell in the three months to September. So what: a resilient labour market ahead of 07:00 CPI keeps the case for a further rise alive after the BoE&rsquo;s 8&ndash;1 vote to 4%."], ["Unloved 30-year gilt is a surprise hit with UK retail investors", "Bloomberg Evening Briefing Europe, 17 Nov", "", "Retail investors are locking in yields above 5% and the chance of tax-free capital gains. So what: a new marginal buyer at the long end, at 5.82% on the thirty-year (TE), and a talking point for clients holding cash."], ["Getting the full picture of trading in UK shares", "FCA blog, 17 Nov", "https://www.fca.org.uk/news/blogs/getting-full-picture-trading-uk-shares", "The FCA sets out how it sees trading in UK shares across venues. So what: market-structure transparency matters for listed-equity funds&rsquo; best-execution and valuation-source work."], ["Deutsche Bank shares drop after leaks put spotlight on troubled past", "WSJ, 17 Nov", "https://www.wsj.com/finance/deutsche-bank-shares-drop-after-wide-ranging-whistleblower-leaks-bc550948", "The FT reports $582m of suspicious Epstein-linked payments (Bloomberg). The CFO calls the stories &lsquo;a repeat of past headlines&rsquo;, and the ADR fell 5.47% (CappNotes). So what: the open counter-chain bets on the cost landing in client de-risking rather than the share price; FT readers&rsquo; Q&amp;A is at 13:00 GMT today."]], "sa": [["Gateway, Cavendish, The Zone and 15 other malls being sold", "BusinessTech, 17 Nov", "https://businesstech.co.za/news/5-things/884605/gateway-cavendish-the-zone-rosebank-and-15-other-malls-being-sold-and-fnb-in-hot-water-over-r200-penalty-fee/", "Vukile raised R7.3bn at R24.37, a 3.9% discount, to fund the R16bn Old Mutual retail portfolio. Its SA book rises about 80% to R36.7bn, making it SA&rsquo;s largest retail REIT (Investec; Business Day). So what: a large SA real-estate transfer, from an insurer&rsquo;s balance sheet to a listed REIT, two days before the SARB."], ["What to expect for interest rates in South Africa this week", "BusinessTech, 17 Nov", "https://businesstech.co.za/news/finance/884684/what-to-expect-from-interest-rates-this-week/", "Economists disagree on direction at the year&rsquo;s last MPC. So what: the rand is steady at R16.93 (ECB) but the ten-year rose 5.5bp to 8.77% (TE), so the curve is pricing risk, not relief."], ["SA to seek relief from proposed EU hybrid-vehicle curbs", "Moneyweb, 18 Nov", "https://www.moneyweb.co.za/news/industry/sa-to-seek-relief-from-proposed-eu-hybrid-vehicle-curbs/", "About R36bn of exports could be at risk if the EU safeguard applies to SA. So what: on top of the Durban terminal backlog, this is a second hit to vehicle exports, the sector behind the open naamsa test on 1 December."], ["Telkom hits 21 million subscribers amid sale talks", "BusinessTech, 17 Nov", "https://businesstech.co.za/news/telecommunications/884644/telkom-hits-21-million-subscribers-amid-sale-talks/", "HEPS rose 9.3% to 334.1c and free cash flow 37.8% to R998m, with no interim dividend (Investec). Telkom will also distribute Amazon Leo satellite internet (BusinessTech). So what: a cleaner cash story going into MTN talks; the shares slipped about 2%."], ["Durban port&rsquo;s crane crisis threatens SA&rsquo;s private-sector logistics drive", "Daily Maverick, 17 Nov", "https://www.dailymaverick.co.za/article/2026-11-17-durban-ports-crane-crisis-threatens-sas-private-sector-logistics-drive/", "Backlogs at Durban Gateway Terminal are raising freight costs. So what: the flagship private-concession model now has an operating failure on its record, which matters for every PPP-funded infrastructure pitch."]], "usa": [["NVIDIA announces financial results for third quarter fiscal 2027", "Nvidia via GlobeNewswire, 17 Nov", "https://www.globenewswire.com/news-release/2026/11/17/3405200/0/en/nvidia-announces-financial-results-for-third-quarter-fiscal-2027.html", "Revenue $115.8bn (+103% y/y), data centre $107.6bn, Q4 guide $130.0bn &plusmn;3% including an extra week, and gross margin guided to 71&ndash;72%. Kress raised the FY2028 growth outlook to 75% (FT). So what: the AI capex cycle did not stall; the discount is now about governance and China, not demand."], ["Fed&rsquo;s Musalem says several rate hikes likely needed before spring 2027", "WSJ, 17 Nov", "https://www.wsj.com/economy/central-banking/feds-musalem-says-several-rate-hikes-likely-needed-before-spring-2027-ffb3a9fc", "FOMC minutes follow tonight. So what: the Fed is tightening into an equity drawdown. That is why gold is below $3,800 and the dollar is near a two-year high."], ["U.S. import prices climb again in October", "WSJ, 17 Nov", "https://www.wsj.com/economy/u-s-import-prices-climb-again-in-october-f4e6bf35", "Import prices rose 1.1%, matching September and beating the 0.7% forecast. So what: pipeline inflation supports the hawks."], ["If you own a Nasdaq-100 fund, you&rsquo;ll own Anthropic shares after 15 trading days", "MarketWatch, 17 Nov", "https://www.marketwatch.com/story/if-you-own-a-nasdaq-100-fund-youll-own-anthropic-shares-after-15-trading-days-whether-you-want-to-or-not-19b08485?mod=mw_rss_topstories", "Fast-entry rules force index buying soon after listing. So what: passive money must fund a ~$1.4tn newcomer by selling the other 100 names, which is the open NDX-vs-S&amp;P test for Friday."], ["Why Salesforce&rsquo;s stock is leading S&amp;P 500 decliners amid tech jitters", "MarketWatch, 17 Nov", "https://www.marketwatch.com/story/why-salesforces-stock-is-leading-s-p-500-decliners-amid-tech-jitters-17510caf?mod=mw_rss_topstories", "Salesforce fell 9.45%, Intuit 7.17% and ServiceNow 6.51% (CappNotes) after an analyst flagged software exposure to AI misuse following the run of outages. So what: listed SaaS multiples set the comparables for PE-held software at year-end marks."]]};
+(function(){
+  Object.keys(STORIES).forEach(k=>{
+    let h='';
+    STORIES[k].forEach(s=>{
+      h+='<div class="story"><h4>'+(s[2]?'<a href="'+s[2]+'" target="_blank" rel="noopener">'+s[0]+'</a>':s[0])+'</h4>'+
+         '<div class="src">'+s[1]+'</div><p>'+s[3]+'</p></div>';
+    });
+    document.getElementById('t-'+k).innerHTML=h;
+  });
+  const bar=document.getElementById('tabbar');
+  bar.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    [...bar.children].forEach(x=>x.classList.remove('act'));
+    b.classList.add('act');
+    document.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('act'));
+    document.getElementById('t-'+b.dataset.t).classList.add('act');
+  });
+})();
+
+
+/* ============ OPPORTUNITY RADAR ============ */
+const RADAR = [{"h": "The AI book reprices on one print tonight", "m": "USA &middot; horizon: days to weeks &middot; confidence: medium", "p": ["<b>Thesis.</b> Anthropic is guiding to price at or above $78, about $1.4tn fully diluted, with multiple orders of $10bn or more (Bloomberg). Meanwhile BofA&rsquo;s survey shows the biggest cut to tech allocations in two decades (Points of Return, opinion). Nasdaq-100 fast entry then forces passive buyers to make room (MarketWatch). A strong debut funded by selling existing AI names would widen the spread between the new issue and the old leaders.", "<b>What would make it wrong.</b> Pricing below the range, or a first-day fall, would say the private marks were the bubble rather than the listed ones.", "<b>Watch.</b> Tonight&rsquo;s price, Thursday&rsquo;s open, and the Nasdaq 100 against the S&amp;P 500 into Friday (currently 0.9pp behind since 2 November, computed)."]}, {"h": "PE-held software: the listed comparables just moved", "m": "USA &middot; horizon: months &middot; confidence: medium", "p": ["<b>Thesis.</b> Salesforce (&minus;9.45%), Intuit (&minus;7.17%) and ServiceNow (&minus;6.51%) fell in one session (CappNotes), and the &lsquo;AI eats SaaS&rsquo; argument is now in the prices. Software is the largest sector in many buyout books, so year-end marks built on listed multiples come under pressure. That is when take-privates get cheap: BILL rose 12.58% on reports that TPG is close to a deal.", "<b>What would make it wrong.</b> A quick rebound in software multiples once Anthropic trades, or Q4 bookings that show no AI substitution.", "<b>Watch.</b> Take-private announcements, and whether funds you audit move their comparable sets or their multiples at 31 December."]}, {"h": "Asian data-centre credit: the first casualty list", "m": "Asia &middot; horizon: weeks to months &middot; confidence: low", "p": ["<b>Thesis.</b> Today&rsquo;s first chain: the licence rule turns Chinese-tenant data centres in Malaysia and Thailand into stranded credit. One $480m GPU loan has already failed, and $2.8bn of Bridge Data Centres debt sits with five global banks. Distressed-credit and special-situations funds get the other side of this.", "<b>What would make it wrong.</b> Quick re-tenanting with US or non-Chinese hyperscalers, which the exemption for US operators allows.", "<b>Watch.</b> MN Holdings against the KLCI to 4 December, and any lender or sponsor (Bain for Bridge) taking a write-down."]}, {"h": "Long gilts at 5.8%: the retail bid", "m": "UK &middot; horizon: weeks &middot; confidence: low", "p": ["<b>Thesis.</b> The thirty-year gilt yields 5.82% (TE). Gilts are exempt from capital gains tax, so low-coupon long gilts give UK taxpayers a gross-equivalent return well above deposits. Retail is buying (Bloomberg), adding a steady domestic buyer at the weakest point of the curve.", "<b>What would make it wrong.</b> A hot CPI print this morning that pushes the thirty-year through 6% and turns the retail bid into a loss.", "<b>Watch.</b> October CPI at 07:00, the thirty-year after it, and the next long-gilt auction cover."]}, {"h": "SA retail property changes hands before the SARB", "m": "South Africa &middot; horizon: months &middot; confidence: low", "p": ["<b>Thesis.</b> Vukile is paying R16bn for 18 Old Mutual malls, including Gateway, funded by a R7.3bn placement at a 3.9% discount (Investec; Business Day). An insurer is recycling capital out of retail property just as the market splits on the SARB. A hold on Thursday would ease the REIT&rsquo;s funding cost; a hike would test the price.", "<b>What would make it wrong.</b> A SARB hike, or the placement shares trading below R24.37.", "<b>Watch.</b> The SARB decision on Thursday, Vukile against R24.37, and the SAPY index (Sharenet SAPI 493.62, &minus;0.10%)."]}];
+(function(){
+  let h='';
+  RADAR.forEach(r=>{
+    h+='<div class="rcard"><h3>'+r.h+'</h3><div class="rmeta">'+r.m+'</div>';
+    r.p.forEach(p=>h+='<p>'+p+'</p>');
+    h+='</div>';
+  });
+  document.getElementById('radar').innerHTML=h;
+})();
+
+
+/* ============ DESK LINGO ============ */
+const LINGO = [{"t": "Beat-and-raise", "d": "A quarter that beats estimates and raises guidance at the same time, the strongest kind of earnings print.", "s": "&ldquo;Textbook beat-and-raise, $130bn guide against $125bn, and it&rsquo;s up three. The print was fine; the positioning wasn&rsquo;t.&rdquo;", "w": "When a beat-and-raise barely moves the stock, the market is pricing something outside the numbers, such as governance or regulation. That is useful context when a client asks why good results did not help."}, {"t": "Death cross", "d": "When a share or index&rsquo;s 50-day moving average falls below its 200-day average, a chartist&rsquo;s sign that a decline has become a trend.", "s": "&ldquo;The banks are a week off a death cross; the systematic guys will sell the cross whether the credit book is fine or not.&rdquo;", "w": "Bloomberg flags US banks near one. Trend-following funds act on these signals mechanically, so price can move without any change in fundamentals, which is worth knowing when you test fair value at a period end."}, {"t": "Capitulation", "d": "The point at which holders give up and sell regardless of price, often marking a low.", "s": "&ldquo;Fear and Greed at 10, miners switching off, ETF outflows seven days straight: either that&rsquo;s capitulation or it&rsquo;s just Tuesday.&rdquo;", "w": "Milk Road shows bitcoin&rsquo;s fear index at 10 and spot ETFs losing $1.91bn in seven sessions. For digital-asset funds, capitulation weeks are when redemption gates and valuation-source questions surface."}];
+const RECAP = "<b>Recap: Tuesday&rsquo;s three.</b> <i>Bull steepener</i>: it ran another day, with the two-year down 3bp to 4.80% and the thirty-year flat at 5.46% (CappNotes). <i>Key-man risk</i>: the first print without Huang beat, and the board shut the door on his return, so the discount is now about governance, not demand. <i>Whisper number</i>: $115.8bn against a $109bn consensus, yet only about +3% after hours, so the whisper was well above the published number.";
+(function(){
+  let h='';
+  LINGO.forEach(l=>{
+    h+='<div class="lcard"><h3>'+l.t+'</h3><div class="def">'+l.d+'</div>'+
+       '<div class="desk">On the desk: '+l.s+'</div>'+
+       '<div class="why">Why it matters to you: '+l.w+'</div></div>';
+  });
+  document.getElementById('lingo').innerHTML=h;
+  document.getElementById('recap').innerHTML=RECAP;
+})();
+
+
+/* ============ TOP THREE READS ============ */
+const READS = [["KPMG carries out its first AI-based audit of a UK-listed company", "FT, FirstFT Europe/Africa, 18 November", "", "Why it matters: it is the first public claim from a Big Four firm that AI ran a listed-company audit and out-questioned the team. It bears directly on methodology, regulator evidence and fees in your own work. (FT; no link by rule.)"], ["NVIDIA Announces Financial Results for Third Quarter Fiscal 2027", "Nvidia via GlobeNewswire, 17 November", "https://www.globenewswire.com/news-release/2026/11/17/3405200/0/en/nvidia-announces-financial-results-for-third-quarter-fiscal-2027.html", "Why it matters: the primary document behind the whole AI tape. Read the outlook footnote that excludes China and the extra week in Q4 before any client asks whether the beat was real."], ["US banks pull back from Asian AI data-center lending", "Seoul Economic Daily (from Bloomberg), 18 November", "https://en.sedaily.com/world/2026/11/18/us-banks-pull-back-from-asian-ai-data-center-lending", "Why it matters: names the loans, lenders and sponsors (Aolani, Bridge, Bain, JPMorgan, Citi, Deutsche, MUFG, SMBC) behind today&rsquo;s first chain. It is a map of where private-credit data-centre exposure sits."]];
+(function(){
+  let h='';
+  READS.forEach((r,i)=>{
+    h+='<div class="read"><h4>'+(r[2]?'<a href="'+r[2]+'" target="_blank" rel="noopener">'+(i+1)+'. '+r[0]+'</a>':(i+1)+'. '+r[0])+'</h4>'+
+       '<div class="src" style="color:var(--muted);font-size:12px">'+r[1]+'</div><p>'+r[3]+'</p></div>';
+  });
+  document.getElementById('reads').innerHTML=h;
+})();
+
+
+/* ============ CALENDAR ============ */
+const CAL = [["Today, Wed 18 Nov", "<b>UK October CPI</b> (07:00 GMT) and eurozone CPI; <b>Bank Indonesia</b> (hold at 5.75% expected, TE); Malaysia Q3 GDP; APEC leaders&rsquo; summit opens in Shenzhen; FT Deutsche Bank Q&amp;A at 13:00 GMT; US housing starts; Target, Lowe&rsquo;s, TJX, Palo Alto Networks; <b>FOMC minutes</b>; <b>Anthropic prices</b> after the US close (books closed Tuesday)."], ["Thu 19 Nov", "<b>SARB decision</b> (repo 7.25%; economists split, BusinessTech); <b>Anthropic&rsquo;s first trade</b> on Nasdaq; <b>Trump&ndash;Xi&ndash;Putin meeting</b> in Shenzhen (China has threatened retaliation over the chip curbs, Bloomberg); GTA VI launch (Take-Two); Walmart."], ["Fri 20 Nov and beyond", "EU&ndash;UK summit. Mon 23 Nov: Coca-Cola HBC lists on the JSE. ~Mon 30 Nov: Aramco December LPG prices; Ueda speaks. Tue 1 Dec: Jensen Huang testifies to House committees; naamsa November exports. Fri 4 Dec: US Section 232 solar tariffs take effect (CappNotes)."]];
+(function(){
+  let h='';
+  CAL.forEach(c=>{ h+='<div class="crow"><div class="cwhen">'+c[0]+'</div><p>'+c[1]+'</p></div>'; });
+  document.getElementById('cal').innerHTML=h;
+})();
+
+
+/* ============ FOOTER ============ */
+document.getElementById('footer').innerHTML = '<p><b>No restricted list is in force.</b> These are research ideas, not recommendations. Opinion items are tagged (opinion).</p>';
+</script>
+</body>
+</html>
