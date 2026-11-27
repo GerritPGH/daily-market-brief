@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Market Brief · 27 November 2026</title>
+<style>
+
+:root{
+  color-scheme: light;
+  --surface:#fcfcfb; --page:#f9f9f7; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --up:#006300; --down:#d03b3b; --warn:#b97a00; --good:#0ca30c;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s7:#4a3aa7;
+  --chipbg:#f0efec; --accent:#0f4c5c;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme: dark;
+    --surface:#1a1a19; --page:#0d0d0d; --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --up:#0ca30c; --down:#e66767; --warn:#fab219; --good:#0ca30c;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s7:#9085e9;
+    --chipbg:#262624; --accent:#7fc4d8;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;font-size:15.5px}
+.wrap{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+a{color:var(--s1);text-decoration:none}
+a:hover{text-decoration:underline}
+header.masthead{border-bottom:3px double var(--axis);padding:18px 0 14px;margin-bottom:22px}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:30px;letter-spacing:.5px}
+.mast-date{color:var(--ink2);font-size:14px}
+.mast-sub{color:var(--muted);font-size:12.5px;margin-top:4px;text-transform:uppercase;letter-spacing:1.2px}
+h2{font-family:Georgia,serif;font-size:21px;margin:34px 0 6px;padding-top:10px;border-top:1px solid var(--grid)}
+h2 .kicker{display:block;font-family:system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.sectionlede{color:var(--ink2);font-size:13.5px;margin-bottom:14px}
+.lede{font-size:17px;line-height:1.65;font-family:Georgia,serif}
+.lede b{font-weight:700}
+.world{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:12px}
+.wcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.wcard h3{font-size:14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tone{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--chipbg)}
+.tone.on{color:var(--up)} .tone.off{color:var(--down)} .tone.mix{color:var(--warn)}
+.wcard p{font-size:13px;color:var(--ink2)}
+.wcard .wnum{font-size:12.5px;margin-top:7px;color:var(--muted)}
+table.dash{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:13.5px}
+.dash th{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid);font-weight:600}
+.dash td{padding:6px 10px;border-bottom:1px solid var(--grid);vertical-align:middle}
+.dash tr:last-child td{border-bottom:none}
+.dash td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.dash .grp td{background:var(--chipbg);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ink2);padding:5px 10px}
+.chg{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.chg.up{color:var(--up)} .chg.dn{color:var(--down)} .chg.na{color:var(--muted);font-weight:400}
+.asof{color:var(--muted);font-size:11.5px}
+.spark{width:110px;height:26px;display:block}
+.sparkna{color:var(--muted);font-size:10.5px;white-space:nowrap}
+.tblscroll{overflow-x:auto;border-radius:10px}
+.note{color:var(--muted);font-size:12px;margin-top:6px}
+.chain{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+.chain h3{font-family:Georgia,serif;font-size:17px;margin-bottom:10px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin-bottom:12px}
+.node{flex:1 1 190px;min-width:170px;background:var(--chipbg);border-radius:8px;padding:9px 11px;font-size:12.8px;line-height:1.45;color:var(--ink)}
+.node .nlab{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:3px}
+.node.spk{border-left:3px solid var(--s2)}
+.node.o1{border-left:3px solid var(--s1)}
+.node.o2{border-left:3px solid var(--s3)}
+.node.o3{border-left:3px solid var(--s7)}
+.arrow{align-self:center;color:var(--axis);font-size:16px}
+.chainmeta{display:grid;gap:6px;font-size:13px;color:var(--ink2)}
+.chainmeta b{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.trip{background:var(--chipbg);border-radius:8px;padding:8px 10px}
+.conf{white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--accent);margin-right:3px;vertical-align:middle}
+.dot.f{background:var(--accent)}
+.tabbar{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.tabbar button{background:var(--chipbg);color:var(--ink2);border:1px solid var(--border);border-radius:99px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer}
+.tabbar button.act{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tabpane{display:none}
+.tabpane.act{display:block}
+.story{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:9px}
+.story h4{font-size:14.5px;margin-bottom:2px}
+.story .src{color:var(--muted);font-size:12px}
+.story p{font-size:13px;color:var(--ink2);margin-top:4px}
+.story p b{color:var(--ink)}
+.radar{display:grid;gap:10px}
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+.rcard h3{font-size:15px;margin-bottom:4px}
+.rcard .rmeta{font-size:11.5px;color:var(--muted);margin-bottom:6px}
+.rcard p{font-size:13px;color:var(--ink2);margin-bottom:4px}
+.rcard p b{color:var(--ink);font-weight:600}
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:9px}
+.lcard h3{font-size:15.5px;font-family:Georgia,serif;margin-bottom:4px}
+.lcard .def{font-size:13.5px;color:var(--ink2)}
+.lcard .desk{font-size:13.5px;margin-top:6px;font-style:italic}
+.lcard .why{font-size:12.5px;color:var(--muted);margin-top:5px}
+.recap{background:var(--chipbg);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--ink2)}
+.read{margin-bottom:12px}
+.read p{font-size:13px;color:var(--ink2)}
+.cal{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.cal .crow{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--grid);font-size:13.5px}
+.cal .crow:last-child{border-bottom:none}
+.cal .cwhen{flex:0 0 118px;font-weight:600;font-size:12.5px;color:var(--accent)}
+.cal .crow p{color:var(--ink2)}
+footer{margin-top:40px;border-top:3px double var(--axis);padding-top:16px;font-size:12.5px;color:var(--ink2)}
+footer h4{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:12px 0 4px}
+footer ul{margin-left:18px}
+footer li{margin-bottom:4px}
+.op{color:var(--warn);font-size:11px;font-weight:600}
+@media(max-width:640px){ .flow{flex-direction:column} .arrow{transform:rotate(90deg);align-self:flex-start;margin-left:12px} }
+.listen{display:none;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:14px 0 4px}
+.listen.ready{display:flex}
+.lbtn{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.lbtn svg{width:18px;height:18px;fill:currentColor}
+.lmain{flex:1 1 auto;min-width:0}
+.ltitle{font-size:13px;font-weight:600;margin-bottom:1px}
+.lmeta{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lbar{margin-top:6px;height:5px;border-radius:99px;background:var(--chipbg);cursor:pointer;position:relative}
+.lfill{height:100%;width:0%;border-radius:99px;background:var(--accent)}
+.lspeed{flex:0 0 auto;background:var(--chipbg);color:var(--ink2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="mast-top">
+    <h1>Daily Market Brief</h1>
+    <div class="mast-date">Friday, 27 November 2026 &middot; Edition No. 68</div>
+  </div>
+  <div class="mast-sub">Asia &middot; United Kingdom &middot; South Africa &middot; United States &nbsp;|&nbsp; Prepared for Gerrit Heyneke</div>
+
+  <div class="listen" id="listen">
+    <button class="lbtn" id="lbtn" aria-label="Listen to this brief">
+      <svg id="lico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="lico-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <div class="lmain">
+      <div class="ltitle">Listen to this brief</div>
+      <div class="lmeta" id="lmeta">Read by Emma &middot; &mdash;</div>
+      <div class="lbar" id="lbar"><div class="lfill" id="lfill"></div></div>
+    </div>
+    <button class="lspeed" id="lspeed" aria-label="Playback speed">1&times;</button>
+    <audio id="laudio" preload="metadata" src="brief-2026-11-27.mp3"></audio>
+  </div>
+
+</header>
+<section>
+  <h2><span class="kicker">Section 1</span>What matters today</h2>
+  <p class="lede">The AI trade came back while America was at the Thanksgiving table, and today it gets a half-day to prove it. With Wall Street shut on Thursday, London and Johannesburg took their cue from Wednesday&rsquo;s intraday reversal: the FTSE 100 rose <b>1.75%</b> to 10,609.30, led by Imperial Brands up 13% after Altria said it is considering a cash offer, with Japan Tobacco exploring a joint approach (Share Talk; Bloomberg). The JSE All Share rose <b>1.80%</b> as Resources gained 3.96% (Sharenet). This morning Nasdaq 100 futures are up <b>2.8%</b> (Bloomberg, 01:13 ET). The Nikkei closed up 1.91% at 58,599, and China&rsquo;s State Council issued a rare midday statement backing its stock market (TE; Bloomberg). The macro has not changed: the Fed is set to hike again on 8&ndash;9 December despite the turmoil (FT), and futures price that at about 98% (CME FedWatch via Milk Road). Oil now has a third flashpoint. After Ras Tanura, the Houthis struck Saudi Arabia&rsquo;s Jazan refinery on the Red Sea, and Iran says ships have hit mines in Hormuz; Brent is <b>$97.28</b> (TE, this morning). The Bank of England&rsquo;s Financial Stability Report told financial firms, for the first time, to prioritise upgrading their encryption against advances in AI and quantum computing (FT). South Africa has a big evening: Moody&rsquo;s and S&amp;P report, with S&amp;P expected to upgrade to BB+ (BusinessTech), and the Constitutional Court rules on the NHI Act. The rand is heading for its worst November in 25 years, down about 5% (Bloomberg via BusinessTech), though the ECB fixed it firmer at R17.55 on Thursday. US stocks close early today, at 13:00 ET (18:00 UK).</p>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 2</span>World at a glance</h2>
+  <p class="sectionlede">One line per market, and the tone the tape is setting this morning.</p>
+  <div class="world">
+    <div class="wcard">
+      <h3>Asia <span class="tone on">Rebound, with a policy put in China</span></h3>
+      <p>KOSPI rose 0.29% to 4,711.21 and the Nikkei 0.86% to 57,499.16 on Thursday (Bloomberg). Today the Nikkei closed up 1.91% at 58,599, led by Mitsui Kinzoku, Sumco and Resonac (TE). China&rsquo;s State Council issued a rare midday statement of support for the market (Bloomberg), and industrial profits rose 16.0% year on year in January&ndash;October (TE). India&rsquo;s foreigners bought for a 12th session (alphave).</p>
+      <div class="wnum">Nikkei 58,599 <span class="chg up">+1.91% Fri</span> &middot; KOSPI ~4,804 <span class="chg up">+2.06% Fri</span> &middot; Nifty 25,885 <span class="chg up">+0.25% Thu</span></div>
+    </div>
+    <div class="wcard">
+      <h3>United Kingdom <span class="tone on">Bid fever and a miners&rsquo; bounce</span></h3>
+      <p>The FTSE 100 rose 1.75% to 10,609.30 and the FTSE 250 1.9% to 24,092.70 (Share Talk). Imperial Brands rose 13% on Altria&rsquo;s possible cash offer, Babcock 6.6% on an &pound;8.7bn submarine-support contract and Halfords 16% on raised guidance. Endeavour and Fresnillo rose more than 5%. The ten-year gilt held at 5.158% (FT). The Bank of England&rsquo;s Financial Stability Report put AI and encryption on the agenda.</p>
+      <div class="wnum">FTSE 100 10,609 <span class="chg up">+1.75%</span> &middot; 10y 5.158% <span class="chg dn">+1.9bp</span> &middot; GBP/USD 1.3104 <span class="chg up">+0.34%</span></div>
+    </div>
+    <div class="wcard">
+      <h3>South Africa <span class="tone mix">Relief rally before the verdicts</span></h3>
+      <p>The All Share rose 1.80% to 106,631.52 and the Top 40 1.80%. Resources rose 3.96%, Media 24.10% on Canal+ and Food Producers 5.69%, with Tiger Brands up 11.40% after its results (Sharenet). Producer inflation jumped to 8.1%, against 7.6% expected (Investec). The ECB fixed the rand at R17.55. Tonight Moody&rsquo;s and S&amp;P report and the Constitutional Court rules on NHI.</p>
+      <div class="wnum">ALSI 106,632 <span class="chg up">+1.80%</span> &middot; USD/ZAR 17.553 <span class="chg up">&minus;0.81%</span> &middot; SA 10y 8.83% <span class="chg up">&minus;5bp</span></div>
+    </div>
+    <div class="wcard">
+      <h3>United States <span class="tone mix">Shut on Thursday, half-day today</span></h3>
+      <p>Markets were closed for Thanksgiving. Futures point to a strong open: Nasdaq 100 +2.8% and S&amp;P 500 +1.7% (Bloomberg, 01:13 ET). US tech is still on course for its biggest monthly fall in nearly four years (FT). The Fed is set to press ahead with a December hike (FT). Black Friday is the first big test for AI shopping agents (Bloomberg). Stocks close at 13:00 ET.</p>
+      <div class="wnum">S&amp;P fut 7,319.50 <span class="chg up">+1.7%</span> &middot; NDX fut 26,836 <span class="chg up">+2.8%</span> &middot; US 10y 4.926% <span class="chg dn">live (TE)</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 3</span>Dashboard</h2>
+  <p class="sectionlede">Every level dated and sourced. Sparklines are 30 days of this project&rsquo;s own rolling history file; a row draws one only once it has at least six points.</p>
+  <div class="tblscroll">
+    <table class="dash">
+      <thead><tr><th>Instrument</th><th style="text-align:right">Level</th><th style="text-align:right">1-day</th><th>30-day</th><th>As at / source</th></tr></thead>
+      <tbody id="dashbody"></tbody>
+    </table>
+  </div>
+  <p class="note">Levels are Thursday 26 November closes unless marked. <b>US rows are Wednesday 25 November closes</b>: US markets were shut for Thanksgiving, so their 1-day column shows n/a and no new history rows were stored. <b>This morning</b> at 05:30 GMT (FT): Nikkei 58,654 (+2.01%), Hang Seng 22,638 (+1.85%), Brent 97.00, Comex gold 3,639.00 (+2.92%), copper 5.57 (+4.36%), US ten-year 4.904%, UK ten-year 5.158%. <b>Brent</b>: TE&rsquo;s implied previous close is $96.39; Share Talk had $96.38 and Sharenet $96.65 at 19:30 SAST. <b>Silver conflict</b>: Sharenet has $41.57 (19:57 SAST) but TE&rsquo;s implied previous is $43.38, more than 4% apart, so Sharenet is shown. The Hang Seng and Shanghai closes are TE&rsquo;s rounded figures. <b>Straits Times n/a</b>: TE&rsquo;s quote and its own Thursday report (4,955 in morning trade) do not reconcile, and no dated close was found. The SA ten-year is TE&rsquo;s implied previous close (8.78% live). Iron ore has no TE print since 25 November. Bitcoin and Ethereum are Sharenet&rsquo;s 19:55 SAST prints, not closes; blockchain.info had bitcoin at $61,590 at 06:40 GMT today.</p>
+</section>
+<section>
+  <h2><span class="kicker">Section 4</span>Connections Engine</h2>
+  <p class="sectionlede">Four cards: two new chains (a private-equity legal fight as a brake on continuation funds, and India&rsquo;s inflows refilling the Reserve Bank&rsquo;s reserves), one settled chain (Peru&rsquo;s fish shortage and Oceana &mdash; confirmed), and one open chain that has run through its kill line. All chains are hypotheses with stated confidence, not forecasts.</p>
+  <div id="chains"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 5</span>The four markets</h2>
+  <div class="tabbar" id="tabbar">
+    <button class="act" data-t="asia">Asia</button>
+    <button data-t="uk">United Kingdom</button>
+    <button data-t="sa">South Africa</button>
+    <button data-t="usa">United States</button>
+  </div>
+  <div class="tabpane act" id="t-asia"></div>
+  <div class="tabpane" id="t-uk"></div>
+  <div class="tabpane" id="t-sa"></div>
+  <div class="tabpane" id="t-usa"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 6</span>Opportunity Radar</h2>
+  <p class="sectionlede">Five situations worth research time, ranked by how big the move is compared with the change in the facts behind it. These are research ideas, not recommendations.</p>
+  <div class="radar" id="radar"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 7</span>Desk Lingo</h2>
+  <p class="sectionlede">Three terms a PM would actually use today, drawn from what is in this brief.</p>
+  <div id="lingo"></div>
+  <div class="recap" id="recap"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 8</span>Top three reads</h2>
+  <div id="reads"></div>
+</section>
+
+<section>
+  <h2><span class="kicker">Section 9</span>The next forty-eight hours</h2>
+  <div class="cal" id="cal"></div>
+</section>
+
+<footer id="footer"></footer>
+
+</div>
+<script>
+/* ============ LISTEN PLAYER ============ */
+(function(){
+  const a=document.getElementById('laudio'), box=document.getElementById('listen'),
+        btn=document.getElementById('lbtn'), ip=document.getElementById('lico-play'),
+        iq=document.getElementById('lico-pause'), meta=document.getElementById('lmeta'),
+        bar=document.getElementById('lbar'), fill=document.getElementById('lfill'),
+        spd=document.getElementById('lspeed');
+  const fmt=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+  const speeds=[1,1.25,1.5]; let si=0;
+  a.addEventListener('loadedmetadata',()=>{ box.classList.add('ready'); meta.textContent='Read by Emma · '+fmt(a.duration); });
+  a.addEventListener('error',()=>box.classList.remove('ready'));
+  btn.addEventListener('click',()=>{ a.paused?a.play():a.pause(); });
+  a.addEventListener('play',()=>{ip.style.display='none';iq.style.display='block';});
+  a.addEventListener('pause',()=>{ip.style.display='block';iq.style.display='none';});
+  a.addEventListener('timeupdate',()=>{
+    if(!a.duration)return;
+    fill.style.width=(a.currentTime/a.duration*100)+'%';
+    meta.textContent='Read by Emma · '+fmt(a.currentTime)+' / '+fmt(a.duration);
+  });
+  a.addEventListener('ended',()=>{ip.style.display='block';iq.style.display='none';fill.style.width='0%';meta.textContent='Read by Emma · '+fmt(a.duration);});
+  bar.addEventListener('click',e=>{
+    if(!a.duration)return;
+    const r=bar.getBoundingClientRect();
+    a.currentTime=(e.clientX-r.left)/r.width*a.duration;
+  });
+  spd.addEventListener('click',()=>{ si=(si+1)%speeds.length; a.playbackRate=speeds[si]; spd.innerHTML=speeds[si]+'&times;'; });
+})();
+</script>
+<script>
+/* ============ DASHBOARD DATA ============ */
+const HIST = {"Brent": [109.86, 109.55, 108.79, 108.82, 113.17, 116.72, 115.81, 113.88, 115.32, 114.88, 113.43, 104.77, 103.6, 94.62, 98.29, 98.32, 92.57, 91.49, 92.76, 95.82, 95.84, 92.44, 93.14, 91.95, 91.98, 92.57, 89.37, 91.4, 94.61, 96.39], "Fed funds": [3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88, 3.88], "Nasdaq 100": [29935.59, 29187.55, 29529.34, 29490.28, 29823.0, 28958.69, 28957.53, 29273.0, 29651.44, 29813.0, 29403.0, 28384.85, 27989.82, 28180.26, 28437.17, 26629.81, 26989.99, 27907.63, 27740.79, 28374.25, 28289.19, 27943.74, 27197.15, 27001.79, 27116.26, 26517.05, 25028.98, 26746.1, 26214.17, 26046.9], "S&P 500": [7744.06, 7659.44, 7690.73, 7712.57, 7757.17, 7663.43, 7623.68, 7676.8, 7722.6, 7743.98, 7720.39, 7580.07, 7541.4, 7568.92, 7688.62, 7353.73, 7376.86, 7549.94, 7520.93, 7619.38, 7592.4, 7561.67, 7416.59, 7340.53, 7323.63, 7175.83, 6910.39, 7237.17, 7201.09, 7182.78], "US 10y yield": [5.19, 5.09, 5.089, 5.142, 5.115, 5.123, 4.957, 4.999, 4.99, 4.986, 5.02, 4.98, 4.94, 4.91, 4.95, 4.9, 4.84, 4.86, 4.88, 4.98, 5.1, 5.15, 5.12, 5.1, 5.07, 5.04, 4.92, 4.92, 4.9, 4.85], "US 2y yield": [4.81, 4.745, 4.721, 4.772, 4.79, 4.81, 4.646, 4.686, 4.712, 4.73, 4.71, 4.61, 4.56, 4.59, 4.61, 4.58, 4.46, 4.51, 4.56, 4.73, 4.88, 4.88, 4.83, 4.8, 4.8, 4.76, 4.63, 4.63, 4.63, 4.61], "US 30y yield": [5.52, 5.43, 5.435, 5.476, 5.423, 5.413, 5.29, 5.312, 5.297, 5.31, 5.36, 5.32, 5.31, 5.28, 5.32, 5.28, 5.25, 5.26, 5.26, 5.35, 5.43, 5.47, 5.46, 5.46, 5.41, 5.4, 5.31, 5.29, 5.29, 5.24], "VIX": [16.46, 19.99, 18.44, 17.31, 16.68, 19.03, 19.45, 18.39, 17.52, 16.91, 17.2, 19.42, 21.15, 20.83, 16.61, 28.18, 25.64, 19.92, 19.46, 17.49, 18.7, 19.3, 22.91, 25.46, 24.56, 28.44, 35.89, 26.62, 26.36, 28.29], "Nikkei 225": [65324.29, 64916.7, 64075.42, 64621.24, 62907.84, 62693.16, 62189.65, 63268.37, 63954.19, 64659.47, 63290.11, 63081.86, 61425.0, 62188.63, 61077.9, 57434.77, 58775.5, 60459.58, 61248.59, 60819.36, 61142.35, 59662.02, 58860.43, 59024.28, 59444.21, 56436.65, 58670.0, 58644.63, 57011.62, 57499.16], "EUR/USD": [1.123, 1.1227, 1.1225, 1.1245, 1.1214, 1.1217, 1.1167, 1.115, 1.1133, 1.113, 1.1172, 1.1216, 1.1179, 1.1267, 1.1224, 1.1165, 1.1193, 1.1214, 1.1127, 1.1081, 1.1052, 1.1014, 1.0989, 1.0968, 1.0992, 1.099, 1.0939, 1.0963, 1.0935, 1.0975], "GBP/USD": [1.3328, 1.3328, 1.3371, 1.3399, 1.3395, 1.3378, 1.3337, 1.3328, 1.3288, 1.3317, 1.3399, 1.3419, 1.3411, 1.35, 1.3459, 1.3385, 1.3416, 1.3423, 1.3307, 1.3256, 1.3227, 1.3198, 1.3191, 1.3168, 1.3151, 1.3125, 1.3074, 1.3098, 1.306, 1.3104], "GBP/ZAR": [21.9645, 21.8879, 21.9049, 21.928, 22.1268, 22.188, 22.196, 22.19, 22.121, 22.161, 22.362, 22.328, 22.313, 22.215, 22.096, 22.136, 22.067, 22.007, 22.042, 22.157, 22.437, 22.362, 22.336, 22.679, 22.726, 22.928, 22.888, 22.979, 23.112, 23.001], "USD/CNY": [6.6862, 6.6807, 6.678, 6.6761, 6.6743, 6.6702, 6.6681, 6.6675, 6.6664, 6.6616, 6.6529, 6.6483, 6.6723, 6.6723, 6.6684, 6.6713, 6.6728, 6.6703, 6.6707, 6.6683, 6.6719, 6.6665, 6.6661, 6.6672, 6.6667, 6.6777, 6.6647, 6.6645, 6.6757, 6.6602], "USD/JPY": [158.11, 158.26, 158.13, 157.68, 156.87, 156.93, 157.57, 157.82, 157.96, 158.06, 157.25, 157.9, 158.29, 158.25, 158.46, 158.33, 157.95, 158.18, 159.23, 159.7, 160.0, 159.6, 159.3, 159.42, 159.97, 158.64, 159.07, 159.07, 159.32, 159.26], "USD/ZAR": [16.48, 16.4225, 16.3824, 16.3649, 16.5064, 16.5976, 16.6291, 16.6487, 16.6477, 16.6413, 16.6895, 16.6386, 16.6379, 16.4555, 16.4173, 16.5382, 16.4482, 16.3957, 16.5639, 16.715, 16.9635, 16.943, 16.9327, 17.2226, 17.2806, 17.4692, 17.5074, 17.5438, 17.6968, 17.5532], "JSE All Share": [110171.85, 110934.23, 108994.98, 110399.23, 109657.95, 108525.49, 108020.14, 109130.32, 109820.15, 109759.05, 110038.7, 107621.67, 109527.8, 109275.3, 113286.18, 112739.38, 115037.93, 114693.44, 113449.53, 112894.87, 112387.86, 111525.58, 110616.44, 106571.7, 106216.49, 104638.77, 106428.34, 106216.57, 104748.25, 106631.52], "JSE Top 40": [102392.5, 103230.22, 101266.06, 102553.46, 101739.26, 100543.39, 99990.91, 100977.01, 101609.02, 101566.62, 101875.93, 99412.34, 101438.67, 101192.33, 105225.9, 104713.98, 107087.6, 106738.05, 105558.44, 104981.31, 104486.62, 103628.96, 102752.15, 98732.67, 98385.12, 96832.98, 98669.34, 98372.69, 96852.23, 98596.15], "Japan 10y JGB": [2.943, 2.93, 2.912, 2.9, 2.9, 2.88, 2.796, 2.787, 2.79, 2.83, 2.84, 2.77, 2.772, 2.82, 2.76, 2.64, 2.68, 2.695, 2.791, 2.807, 2.874, 2.885, 2.867, 2.87, 2.83, 2.785, 2.715, 2.716, 2.65, 2.633], "Bitcoin": [82539.0, 81974.0, 82681.0, 82805.0, 82705.11, 79944.0, 79600.0, 80844.0, 80308.0, 78427.0, 78275.0, 76480.0, 77582.0, 80321.0, 75580.0, 74186.0, 74668.0, 73759.0, 74406.0, 71503.0, 68237.0, 65232.0, 64211.0, 63089.0, 61474.0, 58994.0, 61250.0, 59864.0, 60119.0, 60465], "Copper": [6.53, 6.542, 6.57, 6.54, 6.36, 6.476, 6.513, 6.63, 6.65, 6.58, 6.46, 6.54, 6.38, 6.4, 6.25, 6.22, 6.33, 6.22, 6.28, 6.18, 6.08, 6.0, 5.98, 5.66, 5.63, 5.49, 5.635, 5.368, 5.34, 5.35], "Ethereum": [2418.49, 2409.16, 2442.69, 2442.05, 2379.93, 2314.22, 2310.0, 2352.37, 2325.73, 2243.75, 2289.06, 2245.01, 2285.85, 2418.38, 2220.86, 2119.62, 2115.68, 2064.06, 2091.43, 2015.57, 1937.26, 1821.37, 1786.65, 1767.41, 1743.0, 1618.0, 1740.66, 1680.53, 1682.85, 1692.6], "FTSE 100": [10881.9, 10764.69, 10733.0, 10752.88, 10725.03, 10690.36, 10767.33, 10688.66, 10694.5, 10722.07, 10729.78, 10761.33, 10638.43, 10829.21, 10782.66, 10673.94, 10782.87, 10751.59, 10835.47, 10863.0, 10902.56, 10881.55, 10690.0, 10551.17, 10452.68, 10346.34, 10480.82, 10467.07, 10426.94, 10609.3], "FTSE 250": [24261.14, 24123.75, 24215.33, 24036.75, 23943.88, 24213.78, 24339.19, 24360.77, 24424.77, 24533.9, 24364.76, 24237.39, 24501.25, 24639.26, 24674.16, 24453.36, 24915.69, 24701.98, 24423.93, 24706.34, 24746.65, 24925.04, 24805.41, 24700.06, 24364.17, 24192.21, 23651.73, 24061.9, 23637.0, 24092.7], "Gold": [4166.39, 4140.9, 4124.73, 4141.1, 4024.82, 3993.96, 4016.72, 4060.2, 4067.78, 4021.31, 3875.84, 3956.9, 3931.68, 4060.3, 4087.7, 4070.41, 4140.5, 4032.38, 3987.84, 3876.43, 3881.75, 3856.68, 3849.49, 3725.51, 3626.07, 3535.0, 3634.93, 3556.93, 3588.82, 3567.1], "Hang Seng": [24186.83, 24186.83, 23867.74, 23651.87, 22934.68, 23093.37, 23211.81, 23041.32, 23094.83, 22958.65, 23294.42, 23377.79, 23525.97, 23919.5, 24796.98, 24482.0, 24449.0, 24557.0, 24315.92, 24008.55, 23637.6, 23753.84, 23508.17, 23294.75, 22841.62, 22410.8, 22383.74, 22219.65, 21966.01, 22344], "KOSPI": [5668.05, 5768.01, 5552.74, 5735.66, 5533.77, 5550.3, 5469.47, 5638.34, 6012.44, 5937.66, 5730.74, 5859.08, 5648.79, 5683.8, 5383.8, 5059.69, 5018.85, 5239.13, 5375.36, 5342.73, 5290.53, 5100.5, 4968.48, 5067.44, 5137.89, 4869.96, 4708.54, 5006.03, 4697.51, 4711.21], "Nifty 50": [22721.95, 22622.7, 22997.35, 23146.15, 22888.95, 22888.95, 22811.35, 22687.65, 22600.0, 22753.2, 22749.75, 22698.85, 22936.75, 23053.1, 23440.8, 23810.85, 24536.6, 24986.4, 25044.65, 25255.05, 25299.35, 25144.3, 25291.1, 25387.4, 25227.95, 25514.0, 25800.6, 25349.65, 25819.25, 25885], "Palladium": [1118.5, 1123.0, 1112.5, 1090.0, 1056.5, 1048.0, 1051.25, 1028.5, 1019.0, 1004.5, 988.0, 968.5, 933.5, 1004.0, 1044.5, 1017.0, 1021.5, 1021.0, 1059.5, 1022.5, 1007.5, 974.0, 976.5, 952.0, 918.5, 893.0, 895.5, 861.0, 833.0, 859.0], "Platinum": [1633.1, 1648.2, 1656.5, 1635.9, 1576.9, 1562.4, 1545.4, 1537.2, 1539.8, 1493.3, 1436.0, 1454.4, 1430.0, 1498.2, 1522.4, 1536.9, 1561.7, 1538.4, 1538.5, 1520.4, 1489.7, 1448.5, 1426.5, 1361.0, 1347.5, 1289.6, 1324.2, 1257.8, 1242.4, 1278.7], "SA 10y bond": [8.855, 8.89, 8.89, 8.71, 8.765, 8.785, 8.785, 8.73, 8.73, 8.7, 8.73, 8.675, 8.605, 8.495, 8.42, 8.44, 8.41, 8.505, 8.61, 8.64, 8.68, 8.715, 8.77, 8.855, 8.78, 8.785, 8.79, 8.77, 8.88, 8.83], "Shanghai Comp": [3716.3, 3730.92, 3735.37, 3715.83, 3658.03, 3690.48, 3697.52, 3662.94, 3681.47, 3651.43, 3599.02, 3632.31, 3608.1, 3686.17, 3689.91, 3649.18, 3660.79, 3663.72, 3680.64, 3655.83, 3634.35, 3602.57, 3584.58, 3587.83, 3577.62, 3533.8, 3538.55, 3548.37, 3476.47, 3470], "Straits Times": [5430.5, 5423.33, 5403.5, 5415.53, 5412.0, 5435.31, 5437.99, 5415.14, 5422.16, 5415.91, 5397.03, 5398.0, 5396.03, 5376.74, 5303.83, 5203.97, 5268.63, 5296.25, 5179.17, 5258.59, 5289.66, 5282.7, 5231.84, 5134.64, 5109.13, 5054.89, 4991.49, 4975.3, 4958.87, 4974.39], "UK 10y gilt": [5.38, 5.44, 5.41, 5.38, 5.34, 5.37, 5.36, 5.353, 5.325, 5.3, 5.29, 5.2, 5.248, 5.137, 5.136, 5.156, 5.14, 5.228, 5.222, 5.31, 5.34, 5.35, 5.372, 5.2896, 5.32, 5.24, 5.205, 5.194, 5.139, 5.158], "Silver": [56.99, 57.083, 57.97, 57.96, 54.59, 53.875, 53.961, 54.41, 53.95, 52.14, 48.9, 50.68, 49.79, 52.26, 51.78, 51.88, 53.4, 51.5, 51.66, 50.02, 48.72, 46.94, 47.34, 45.03, 42.85, 41.19, 43.12, 40.91, 41.4, 41.57], "UK 30y gilt": [5.86, 5.9, 5.883, 5.847, 5.783, 5.73, 5.75, 5.747, 5.75, 5.71, 5.71, 5.63, 5.67, 5.585, 5.595, 5.62, 5.6, 5.66, 5.64, 5.72, 5.79, 5.8, 5.82, 5.74, 5.77, 5.71, 5.665, 5.658, 5.63, 5.617], "Iron ore": [90.57, 90.9, 90.95, 90.86, 90.85, 90.73, 90.83, 90.78, 90.7, 90.7, 90.71, 90.71, 91.25, 91.03, 91.95, 93.12, 92.7, 92.71, 92.54, 92.15, 91.6, 91.48, 90.91, 90.62, 90.72, 90.86, 90.67, 90.67, 90.67, 90.64], "BoE Bank Rate": [3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0], "SARB repo": [7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25, 7.25], "BoJ policy rate": [1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25]};
+const ROWS = [["Equities"], ["S&P 500", "7,182.78", "n/a", "CappNotes close 25/11 (no session 26/11: Thanksgiving)", "S&P 500"], ["Nasdaq 100", "26,046.90", "n/a", "CappNotes close 25/11 (no session 26/11)", "Nasdaq 100"], ["FTSE 100", "10,609.30", "1.75", "Share Talk close report 26/11 (FT 10,609; Sharenet 18:44 10,609.30)", "FTSE 100"], ["FTSE 250", "24,092.70", "1.93", "Share Talk close report 26/11 (+455.70)", "FTSE 250"], ["JSE All Share", "106,631.52", "1.80", "Sharenet Daily 26/11 close", "JSE All Share"], ["JSE Top 40", "98,596.15", "1.80", "Sharenet Daily 26/11 close", "JSE Top 40"], ["Nikkei 225", "57,499.16", "0.86", "Bloomberg Markets Daily 26/11 (FT Asia 57,499); Fri close 58,599 +1.91% (TE)", "Nikkei 225"], ["Hang Seng", "22,344", "1.72", "TE close report 26/11 (rounded; FT Asia 22,227)", "Hang Seng"], ["Shanghai Comp", "3,470", "-0.19", "TE close report 26/11 (rounded; Sharenet 08:56 3,467.27)", "Shanghai Comp"], ["KOSPI", "4,711.21", "0.29", "Bloomberg Markets Daily 26/11 (TE 4,711)", "KOSPI"], ["Straits Times", "n/a", "n/a", "No dated close found; TE quote and report disagree", "Straits Times"], ["Nifty 50", "25,885", "0.25", "alphave (NSE) close 26/11; single source", "Nifty 50"], ["Currencies"], ["USD/ZAR", "17.5532", "-0.81", "ECB reference 26/11 via Frankfurter", "USD/ZAR"], ["GBP/USD", "1.3104", "0.34", "ECB reference 26/11 via Frankfurter", "GBP/USD"], ["GBP/ZAR", "23.0010", "-0.48", "ECB reference 26/11 via Frankfurter", "GBP/ZAR"], ["USD/JPY", "159.26", "-0.04", "ECB reference 26/11 via Frankfurter", "USD/JPY"], ["USD/CNY", "6.6602", "-0.23", "ECB reference 26/11 via Frankfurter", "USD/CNY"], ["EUR/USD", "1.0975", "0.37", "ECB reference 26/11 via Frankfurter", "EUR/USD"], ["Rates"], ["US 2-year", "4.61%", "n/a", "Treasury via CappNotes 25/11 (no session 26/11)", "US 2y yield"], ["US 10-year", "4.85%", "n/a", "Treasury via CappNotes 25/11; live 4.926% (TE 27/11)", "US 10y yield"], ["US 30-year", "5.24%", "n/a", "Treasury via CappNotes 25/11 (no session 26/11)", "US 30y yield"], ["UK 10-year gilt", "5.158%", "+1.9bp", "FT panel 26/11 (5.158, +0.007); TE 5.15", "UK 10y gilt"], ["UK 30-year gilt", "5.617%", "-1.3bp", "TE 30y page 26/11; single source", "UK 30y gilt"], ["SA 10-year", "8.830%", "-5.0bp", "TE implied previous close 26/11 (live 8.78%)", "SA 10y bond"], ["Japan 10-year", "2.633%", "-1.7bp", "FT Asia 26/11 (2.633); TE implied 2.63", "Japan 10y JGB"], ["Fed funds", "3.88%", "+0.0bp", "NY Fed EFFR 24/11", "Fed funds"], ["BoE Bank Rate", "4.00%", "+0.0bp", "BoE 5/11 unchanged", "BoE Bank Rate"], ["SARB repo", "7.25%", "+0.0bp", "SARB MPC 19/11 held 4-3", "SARB repo"], ["BoJ policy rate", "1.25%", "+0.0bp", "BoJ 30/10 unchanged", "BoJ policy rate"], ["VIX", "28.29", "n/a", "CappNotes close 25/11 (no session 26/11)", "VIX"], ["Commodities"], ["Brent", "96.39", "1.88", "TE implied previous 26/11 (Share Talk 96.38; Sharenet 96.65 19:30)", "Brent"], ["Gold", "3,567.10", "-0.61", "TE implied previous 26/11 (Sharenet 3,567.80 19:57)", "Gold"], ["Silver", "41.57", "0.41", "Sharenet 19:57 SAST 26/11 (TE implied 43.38 - conflict)", "Silver"], ["Platinum", "1,278.70", "2.92", "TE implied previous 26/11 (Sharenet 1,283.25)", "Platinum"], ["Palladium", "859.00", "3.12", "TE implied previous 26/11 (Sharenet 862.00)", "Palladium"], ["Copper", "5.350", "0.19", "FT Asia panel 26/11 (TE implied 5.36)", "Copper"], ["Iron ore", "90.64", "n/a", "TE 25/11; no newer print", "Iron ore"], ["Digital assets"], ["Bitcoin", "60,465", "0.58", "intraday: Sharenet 19:55 SAST 26/11 (blockchain.info 61,590 06:40 GMT 27/11)", "Bitcoin"], ["Ethereum", "1,692.60", "0.58", "intraday: Sharenet 19:55 SAST 26/11; single source", "Ethereum"]];
+
+function sparkHtml(name){
+  const h=HIST[name];
+  if(!h||h.length<6){ const n=h?h.length:0; return '<span class="sparkna">building &middot; day '+n+'/30</span>'; }
+  const w=110,ht=26,pad=3;
+  const mn=Math.min.apply(null,h), mx=Math.max.apply(null,h), rng=(mx-mn)||1;
+  const pts=h.map((v,i)=>{
+    const x=pad+i*(w-2*pad)/(h.length-1);
+    const y=ht-pad-((v-mn)/rng)*(ht-2*pad);
+    return x.toFixed(1)+','+y.toFixed(1);
+  }).join(' ');
+  const up=h[h.length-1]>=h[0];
+  const col=up?'var(--up)':'var(--down)';
+  const last=pts.split(' ').pop().split(',');
+  return '<svg class="spark" viewBox="0 0 '+w+' '+ht+'" preserveAspectRatio="none" aria-hidden="true">'+
+    '<polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>'+
+    '<circle cx="'+last[0]+'" cy="'+last[1]+'" r="1.8" fill="'+col+'"/></svg>';
+}
+
+(function(){
+  const b=document.getElementById('dashbody');
+  let html='';
+  ROWS.forEach(r=>{
+    if(r.length===1){ html+='<tr class="grp"><td colspan="5">'+r[0]+'</td></tr>'; return; }
+    const raw=r[2]; let cls='na', txt=raw;
+    if(raw!=='n/a'){
+      const num=parseFloat(raw);
+      cls = num>0?'up':(num<0?'dn':'na');
+      txt = (raw.indexOf('bp')>-1) ? raw : (raw+'%');
+      if(num>0 && txt[0]!=='+') txt='+'+txt;
+      txt = txt.replace('-','−');
+    }
+    html+='<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td>'+
+      '<td class="num"><span class="chg '+cls+'">'+txt+'</span></td>'+
+      '<td>'+sparkHtml(r[4])+'</td>'+
+      '<td class="asof">'+r[3]+'</td></tr>';
+  });
+  b.innerHTML=html;
+})();
+
+
+/* ============ CONNECTIONS ENGINE ============ */
+const CHAINS = [{"t": "New: the LP revolt against no-sue clauses &mdash; a brake on continuation funds", "labs": ["Spark", "Obvious read", "Second order", "Where it lands"], "s": "Investors are pushing back against fund contracts, drafted by law firms including Kirkland &amp; Ellis, that they say remove their right to sue private-equity managers over continuation-vehicle deals (FT, FirstFT, 27/11).", "n": ["Obvious read: a drafting fight between LPs and GPs that will be settled clause by clause in side letters.", "Second order: continuation vehicles are now the exit route. Jefferies counted GP-led deals at 53% of first-half 2026 secondary volume, the first GP-led majority since 2021; continuation vehicles were 89% of GP-led volume and 14% of sponsor-backed exits (Private Markets Insights, citing Jefferies). LPs who will not waive claims make each deal slower and dearer: more independent pricing, fairness opinions and LPAC time. Multi-asset deals already priced at an average 10.5% discount, up from 4.2% (Campbell Lutyens).", "Third order: fewer year-end continuation closings, so the GP-led share of full-year volume slips back. Sponsors would lean harder on NAV loans and minority stake sales for liquidity."], "x": "Listed private-equity managers, secondaries funds and NAV lenders. For Channel Islands administrators and auditors, the continuation vehicles domiciled in Jersey and Guernsey: conflicts, valuation support and LPAC minutes will draw more scrutiny.", "trip": "Jefferies Global Secondary Market Review, full year 2026 (expected late January 2027). A GP-led share of 48% or less confirms (53% in the first half).", "kill": "A GP-led share of 53% or more for the full year.", "conf": 1, "weak": "Year-end is the season for continuation closings, so the second half often runs GP-heavy. The pushback may be confined to a few LPs and settled privately. The test is two months away."}, {"t": "New: India&rsquo;s inflows are refilling the Reserve Bank&rsquo;s tank", "labs": ["Spark", "Obvious read", "Second order", "Where it lands"], "s": "Foreign investors bought a net &#8377;5,843 crore of Indian shares on Thursday, their 12th straight session of buying, worth &#8377;1.31 lakh crore in all (NSE/BSE via alphave). The ECB fixed the rupee at 92.45 per dollar, from 94.25 on 13 November (Frankfurter).", "n": ["Obvious read: the rupee keeps rallying. Rupee options have turned bullish for the first time since February (Bloomberg Evening Briefing Asia, 26/11).", "Second order: the Reserve Bank, whose reserves fell $14.2bn to $705.34bn in the week to 13 November (RBI via TE), has every reason to buy dollars into the inflow and rebuild. The rupee has gained only about 2% while foreigners poured in &#8377;1.31 lakh crore, which suggests someone is absorbing the flow.", "Third order: RBI dollar buying adds rupee liquidity, which eases money-market rates and supports Indian banks. It also caps the currency, so foreign investors&rsquo; returns come from the shares, not the rupee."], "x": "USD/INR and Indian bank stocks. For funds holding India, currency gains are likely to be capped.", "trip": "RBI foreign-exchange reserves for the week to 27 November (published Fri 4 December, 11:30 GMT). A rise of $5bn or more on the week-to-20-November figure (published today) confirms.", "kill": "A fall in reserves in the week to 27 November.", "conf": 1, "weak": "Reserves include valuation effects and the RBI&rsquo;s forward book. Gold barely moved in the test week (about $3,626 on 20 November, about $3,640 now), which keeps the read cleaner, but euro and yen moves still count."}, {"t": "Settled: Peru&rsquo;s fish shortage reached Oceana&rsquo;s profit line &mdash; confirmed", "labs": ["The thesis", "What printed", "Verdict", "What it teaches"], "s": "Open since October: a poor Peruvian anchovy season would push world fish-oil prices up, and Oceana&rsquo;s US business Daybrook, which sells menhaden fish oil, would capture it. The Peruvian quota leg was met on 16 October. The mechanism test was Oceana&rsquo;s full-year results, with Daybrook fish-oil prices up 20% or more.", "n": ["Thursday&rsquo;s results: record second-half prices lifted Daybrook&rsquo;s average dollar fish-oil price by 24%. Daybrook&rsquo;s revenue rose 13.3% to R2.684bn and operating profit 56.2% to R839m. Group profit after tax rose 38.5% to R1bn, and the final dividend rose to 320c from 175c (Oceana results via QNC News).", "Verdict: confirmed. The price leg cleared its 20% line and showed up in profit. The other side of the shortage ran too: Oceana&rsquo;s African fishmeal segment swung to a R175m operating loss as industrial landings fell 70%, and Lucky Star&rsquo;s local cannery output fell 64% on a global shortage of canning fish.", "What it teaches: a supply shock pays the producer outside the shock zone. El Ni&ntilde;o is now pushing up cocoa, coffee, sugar and fish prices (Daily Maverick, 26/11), so the pattern may repeat in 2027."], "x": "Oceana (+0.4% at R71.93 mid-morning, Investec) and SA food producers (+5.69% on Thursday, Sharenet).", "trip": "Met: Daybrook&rsquo;s average fish-oil price rose 24%, against a 20% line.", "kill": "Not triggered.", "conf": 3, "weak": "Confirmed on the reported figures. The share barely moved, so the market had largely priced it."}, {"t": "On the clock: India&rsquo;s foreign flows run through the kill line", "labs": ["The thesis", "What printed", "Where it stands", "What to watch"], "s": "From 24 November: India&rsquo;s record foreign inflows were a hedge against AI, so foreigners would sell India once the AI trade steadied and Seoul and Taipei had official floors under them.", "n": ["Thursday, with the AI trade steadier: foreigners bought another &#8377;5,843 crore and domestic institutions &#8377;5,631 crore; the Nifty rose 0.25% to 25,885 (NSE/BSE via alphave).", "Two of three sessions add up to net foreign buying of &#8377;10,322 crore, through the &#8377;10,000 crore kill line. Only a net sale of more than &#8377;322 crore on Friday would pull it back.", "Likely verdict on Monday: killed. The new India chain above takes the next question: if the money is staying, who is absorbing it?"], "x": "The Nifty against KOSPI; USD/INR.", "trip": "NSE provisional foreign-investor cash flows for Wed 25, Thu 26 and Fri 27 November, summed. A net sale confirms.", "kill": "A net foreign purchase of &#8377;10,000 crore or more; &#8377;10,322 crore after two sessions.", "conf": 1, "weak": "The premise itself: foreigners are treating India as the shelter from both AI and tariffs."}];
+(function(){
+  const box=document.getElementById('chains');
+  const clab=['low','medium','high'];
+  let html='';
+  CHAINS.forEach(c=>{
+    const nodes=[c.s].concat(c.n);
+    let flow='';
+    nodes.forEach((n,i)=>{
+      if(i) flow+='<div class="arrow">&#10230;</div>';
+      const cls=['spk','o1','o2','o3'][i];
+      flow+='<div class="node '+cls+'"><div class="nlab">'+c.labs[i]+'</div>'+n+'</div>';
+    });
+    let dots='';
+    for(let i=0;i<3;i++) dots+='<span class="dot'+(i<c.conf?' f':'')+'"></span>';
+    html+='<div class="chain"><h3>'+c.t+'</h3><div class="flow">'+flow+'</div>'+
+      '<div class="chainmeta">'+
+      '<div><b>Market expression</b>'+c.x+'</div>'+
+      '<div class="trip"><b>Tripwire</b>'+c.trip+'</div>'+
+      '<div><b>Kill line</b>'+c.kill+'</div>'+
+      '<div><b>Confidence</b><span class="conf">'+dots+' '+clab[c.conf-1]+'</span> &mdash; weakest link: '+c.weak+'</div>'+
+      '</div></div>';
+  });
+  box.innerHTML=html;
+})();
+
+
+/* ============ FOUR MARKETS ============ */
+const STORIES = {"asia": [["Nikkei closes up 1.91% at 58,599 as memory and materials stocks lead", "Trading Economics, 27 Nov", "https://tradingeconomics.com/japan/stock-market", "Mitsui Kinzoku rose 10.94%, Sumco 9.73% and Resonac 9.55% (TE). On Thursday the Nikkei rose 0.86% to 57,499.16 (Bloomberg). Japanese life insurers have cut currency hedges on overseas portfolios to the lowest on record, even as authorities spend record sums supporting the yen (Bloomberg). Short-term JGB yields rose on elevated Tokyo inflation (WSJ). So what: unhedged lifers are a one-way bet on a weak yen, which matters if the BoJ hikes in December."], ["China&rsquo;s State Council backs the market; industrial profits up 16%", "WSJ, 27 Nov", "https://www.wsj.com/economy/chinas-industrial-profit-surged-despite-headwinds-0296ec7c", "Chinese stocks rallied after a rare midday State Council statement (Bloomberg). Shanghai fell 0.2% to 3,470 on Thursday and trades near 3,590 today (TE). Industrial profits rose 16.0% year on year in January&ndash;October (TE). China said it reserves the right to retaliate against the threat of steeper US tariffs (FT). So what: Beijing is putting a floor under equities while it negotiates the 20%-to-40% tariff threat."], ["KOSPI extends its rebound as foreigners and institutions buy", "Trading Economics, 27 Nov", "https://tradingeconomics.com/south-korea/stock-market", "KOSPI rose 0.29% to 4,711 on Thursday, with SK Hynix up 5.34%, and is up 2.06% near 4,804 today. Foreigners bought KRW59.2bn and institutions KRW418.3bn, while retail investors sold KRW723.2bn (TE). Huawei is teasing a next-generation HBM chip to rival Samsung and SK Hynix (Bloomberg). So what: two days do not undo Wednesday&rsquo;s 6.16% fall, but the buyers are the right ones."], ["Singapore &lsquo;very disappointed&rsquo; by tariffs of up to 20%; India faces 17%", "Bloomberg, Evening Briefing Asia, 26 Nov", "", "Singapore disputes the US finding of excess capacity. Indian goods would face 17%, rising to 25% without a deal; textiles, gems and jewellery, and seafood are most exposed. Vietnam told companies to plan mitigation, and Asian officials are signalling diplomacy over retaliation (Bloomberg). So what: the tariff list mostly mirrors existing deals, so Asia is negotiating, not retaliating. (Bloomberg newsletter links carry tracking.)"], ["India: foreigners buy for a 12th session as the Nifty edges up", "alphave (NSE/BSE flows), 26 Nov", "https://www.alphave.in/flows", "Foreigners bought a net &#8377;5,843 crore and domestic institutions &#8377;5,631 crore; the Nifty closed 0.25% higher at 25,885. MSCI India got a rare earnings upgrade (WSJ). Two Adani companies are preparing bond issues of at least $220m (Bloomberg). So what: India keeps drawing money on both AI-down and AI-up days &mdash; see the Connections Engine."]], "uk": [["FTSE 100 jumps 182 points as Imperial Brands and Babcock rally", "Share Talk, 26 Nov", "https://www.share-talk.com/ftse-100-jumps-182-points-as-imperial-brands-and-babcock-rally/", "The FTSE 100 closed 1.8% higher at 10,609.30 and the FTSE 250 1.9% higher at 24,092.70. Imperial Brands rose 402p to 3,432p and Babcock 67p to 1,090p; Land Securities and Severn Trent were the biggest fallers. Sterling rose to $1.3113. So what: London rallied on its own bid news while New York was shut."], ["Altria and Japan Tobacco explore a takeover of Imperial Brands", "Share Talk / Bloomberg, 26 Nov", "https://www.share-talk.com/ftse-100-jumps-182-points-as-imperial-brands-and-babcock-rally/", "Altria confirmed it is considering a possible cash offer for Imperial, valued at about &pound;26bn, and is discussing a deal for part of Imperial&rsquo;s operations with a third party; Bloomberg reports that party is Japan Tobacco. No formal offer has been made. It follows Compass Group&rsquo;s plan to move its primary listing to the US (Share Talk). So what: another big London name may leave; see the Radar."], ["Bank of England tells firms to prioritise encryption upgrades against AI and quantum", "Bank of England, Financial Stability Report, 26 Nov", "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026", "For the first time the Bank told financial groups to prioritise updating their cryptographic codes. Governor Bailey said AI companies are &lsquo;on the exponential part of the development curve&rsquo; and are right to be cautious about releasing their latest models (FT). The report also flags risks from AI borrowing and the Middle East war (Euronext/Reuters). So what: encryption has moved from an IT topic to a prudential one, for UK and Jersey firms alike."], ["UK to pay an EU &lsquo;participation fee&rsquo; for its food and carbon-market deal", "FT, FirstFT, 27 Nov", "", "Legal texts show the UK will pay an extra fee as the price of removing border checks on food and drink exports and re-linking carbon markets; EU diplomats call it a &lsquo;pay-to-play&rsquo; settlement (FT). So what: the reset has a price tag, which matters for UK carbon-credit prices and agrifood exporters. (FT items carry no link.)"], ["Data-centre developers head north as London runs out of power", "FT, FirstFT, 27 Nov", "", "Developers are flocking to former industrial sites in the north of England as London hubs run short of power and land (FT). Fortress is weighing a sale of Poundstretcher as UK retail pain spreads (Bloomberg). So what: grid capacity, not land price, now decides where UK data-centre capital goes. (FT items carry no link.)"]], "sa": [["JSE rallies 1.8% as miners and Canal+ jump; Tiger Brands up 11.4%", "The Sharenet Daily, 26 Nov", "", "The All Share closed at 106,631.52 and the Top 40 at 98,596.15, both up 1.80%; Resources rose 3.96% and Metals &amp; Mining 4.49%. Canal+ rose 24.10%, Tiger Brands 11.40%, Sibanye-Stillwater 5.91% and Implats 5.31%; advances beat declines 308 to 74 (Sharenet). Tiger lifted operating income 12.6% to R4.31bn but braces for higher food costs as El Ni&ntilde;o threatens crops (Investec; Business Day). So what: a broad relief rally into a risky Friday."], ["Producer inflation jumps to 8.1%, highest since April 2023", "Business Day / Investec The Pulse, 26&ndash;27 Nov", "", "October PPI rose 8.1% year on year against an expected 7.6%, driven by coke, petroleum and chemical products (Business Day; Investec). The SARB&rsquo;s Financial Stability Review says geopolitical uncertainty poses risks to the domestic financial system (Business Day). So what: pipeline inflation is rising just as the Reserve Bank held at 7.25% on a 4&ndash;3 vote. (Newsletter links carry tracking.)"], ["Rand on course for its worst November in 25 years", "BusinessTech (Bloomberg), 26 Nov", "https://businesstech.co.za/news/finance/886423/25-year-worst-for-the-rand/", "The rand has fallen about 5% this month, the most for a November since 2001, and one-week implied volatility is at a seven-month high. Gold is down about 11% this month and platinum 15%, and the ANC had its worst local-election result since 1994 (Bloomberg). The ECB fixed the rand at R17.5532 on Thursday, from R17.6968 (Frankfurter). So what: the currency is priced for bad news into tonight&rsquo;s ratings."], ["Moody&rsquo;s and S&amp;P report tonight; the Constitutional Court rules on NHI", "BusinessTech, 24&ndash;26 Nov", "https://businesstech.co.za/news/finance/885964/south-africa-bracing-for-good-news-this-week/", "Investec&rsquo;s Annabel Bishop says Moody&rsquo;s could upgrade from Ba2 but it is not a given, while S&amp;P is expected to upgrade to BB+, one notch below investment grade; Fitch follows on 11 December (BusinessTech). The Constitutional Court rules on the NHI Act today (BusinessTech), and Life Healthcare&rsquo;s CEO says the NHI push is deterring foreign investors (Business Day). ActionSA&rsquo;s Nasiphi Moya is Tshwane&rsquo;s new mayor (BusinessTech). So what: three verdicts in one evening."], ["Oceana profit up 38.5% as Daybrook&rsquo;s fish-oil prices surge", "QNC News, 27 Nov", "https://qncnews.com/2026/11/27/oceana-group-profit-after-tax-jumps-38-5-per-cent-to-1-billion-rand-as-daybrook-and-wild-caught-seafood-shine/", "Profit after tax rose to R1bn, operating profit 20.8% to R1.514bn, and the final dividend to 320c. Daybrook&rsquo;s fish-oil price rose 24%; net debt fell 47.4% to R1.369bn. Lucky Star&rsquo;s cannery output fell 64% on a global shortage of canning fish. So what: the Connections Engine&rsquo;s Peru chain is confirmed."]], "usa": [["Fed to press ahead with rate rises despite the market turmoil", "FT, FirstFT Asia, 27 Nov", "", "The Fed is set to raise rates again at its 8&ndash;9 December meeting, even though economists, market participants and the Treasury secretary had called for a hold (FT). Futures put a 25bp hike at about 98% (CME FedWatch) and Polymarket at about 94%, which would take the range to 4.00&ndash;4.25% (Milk Road). So what: there is no Fed put under this sell-off. (FT items carry no link.)"], ["US tech heads for its worst month in nearly four years; futures jump 2.8%", "FT / Bloomberg, 26&ndash;27 Nov", "", "US tech stocks are on course for their biggest monthly fall in nearly four years (FT). Nasdaq 100 futures were up 2.8% and S&amp;P 500 futures 1.7% at 01:13 ET (Bloomberg). Michael Burry is now more long than short after selling his Nasdaq 100 puts (Bloomberg Markets Daily). So what: a half-day after a holiday is a thin market in which to call a bottom."], ["Aschenbrenner&rsquo;s Situational Awareness lost 65% in the third quarter", "WSJ, 26 Nov", "https://www.wsj.com/finance/investing/aschenbrenners-situational-awareness-tells-investors-it-lost-65-in-third-quarter-de8e9797", "The AI-focused hedge fund nearly imploded in July (WSJ via Bloomberg). Anthropic&rsquo;s shares have twice fallen below their issue price, which Alphaville argues bodes badly for an OpenAI listing (FT, opinion). So what: the AI trade&rsquo;s specialist money has taken the heaviest losses."], ["Billions in data-centre deals grind to a halt after chip curbs", "Bloomberg, Markets Daily, 26 Nov", "", "JPMorgan sees $450bn of high-grade issuance next year to finance AI. SoftBank&rsquo;s credit risk has topped 500bp, and the Ellisons&rsquo; $87bn debt gamble has rattled credit markets (Bloomberg; FT). So what: AI credit, not just AI equity, is now being repriced. (Bloomberg newsletter links carry tracking.)"], ["AI shopping bots get their first real test this Black Friday", "Bloomberg, 26 Nov", "https://www.bloomberg.com/news/features/2026-11-26/holidays-to-test-ai-shopping-bots-from-google-amazon-meta-and-openai", "Google, Amazon, Meta and OpenAI are betting that agents will drive holiday spending (Bloomberg). Stocks close at 13:00 ET today (MarketWatch). Adobe&rsquo;s online-spend figure lands on Saturday. So what: a weak Black Friday would hit the consumer and the AI story at once."]]};
+(function(){
+  Object.keys(STORIES).forEach(k=>{
+    let h='';
+    STORIES[k].forEach(s=>{
+      h+='<div class="story"><h4>'+(s[2]?'<a href="'+s[2]+'" target="_blank" rel="noopener">'+s[0]+'</a>':s[0])+'</h4>'+
+         '<div class="src">'+s[1]+'</div><p>'+s[3]+'</p></div>';
+    });
+    document.getElementById('t-'+k).innerHTML=h;
+  });
+  const bar=document.getElementById('tabbar');
+  bar.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    [...bar.children].forEach(x=>x.classList.remove('act'));
+    b.classList.add('act');
+    document.querySelectorAll('.tabpane').forEach(p=>p.classList.remove('act'));
+    document.getElementById('t-'+b.dataset.t).classList.add('act');
+  });
+})();
+
+
+/* ============ OPPORTUNITY RADAR ============ */
+const RADAR = [{"h": "SA ratings night: an upgrade into the rand&rsquo;s worst November in 25 years", "m": "South Africa &middot; horizon: days to weeks &middot; confidence: medium", "p": ["<b>Thesis.</b> S&amp;P is expected to lift South Africa to BB+, one notch below investment grade, and Moody&rsquo;s may move from Ba2 (BusinessTech). Yet the rand is down about 5% in November (Bloomberg) and the ten-year is at about 8.83%, up from 8.41% on 9 November (TE). An upgrade into that discount would surprise more than the fundamentals behind it.", "<b>What would make it wrong.</b> Both agencies hold and cite coalition risk after the ANC&rsquo;s worst local-election result, or the NHI ruling and the Fed&rsquo;s hike keep foreign money away.", "<b>Watch.</b> Tonight&rsquo;s statements, the ten-year against 8.5% and 9.0%, USD/ZAR against R17.40 and R17.90, and Fitch on 11 December."]}, {"h": "London&rsquo;s shrinking market is becoming a bid list", "m": "UK &middot; horizon: weeks to months &middot; confidence: low", "p": ["<b>Thesis.</b> Altria is considering a cash offer for Imperial Brands (about &pound;26bn), possibly with Japan Tobacco (Share Talk; Bloomberg), days after Compass said it will move its primary listing to the US. Low UK valuations plus strong dollar buyers make cash-rich, low-growth FTSE names targets.", "<b>What would make it wrong.</b> No firm offer emerges, or US bidders&rsquo; own funding costs rise with the Fed&rsquo;s hikes and the AI debt wave.", "<b>Watch.</b> Whether Altria makes a firm offer before the Takeover Code deadline, any move by BAT, and further US-listing announcements."]}, {"h": "Continuation vehicles under the microscope", "m": "Private markets &middot; horizon: months &middot; confidence: low", "p": ["<b>Thesis.</b> Continuation vehicles were 89% of GP-led volume and 14% of sponsor-backed exits in the first half (Jefferies via Private Markets Insights). LPs are now resisting clauses that waive their right to sue (FT). Valuation support, fairness opinions and conflict handling will get more scrutiny at 31 December year-ends.", "<b>What would make it wrong.</b> GPs concede the clauses quietly and the year-end pipeline closes on time.", "<b>Watch.</b> ILPA guidance, any LP litigation, and Jefferies&rsquo; full-year review in January (the new chain CV1)."]}, {"h": "The AI rebound runs on mechanics, into month-end", "m": "USA / Asia &middot; horizon: days &middot; confidence: low", "p": ["<b>Thesis.</b> Nasdaq 100 futures are up 2.8% (Bloomberg), Burry has turned net long (Bloomberg Markets Daily), the Nikkei is up 1.91% and KOSPI about 2% (TE), and month-end rebalancing favours equities after November&rsquo;s fall. The facts have not changed &mdash; the Fed still hikes in December &mdash; so this is positioning, not news.", "<b>What would make it wrong.</b> A weak Black Friday, or the half-day gains fade into Monday&rsquo;s close.", "<b>Watch.</b> The Nasdaq 100 close today against 26,955 and the S&amp;P 500 on Monday against 7,175.83 (both open ledger lines)."]}, {"h": "South African miners are priced for the metals&rsquo; lows", "m": "South Africa / commodities &middot; horizon: weeks &middot; confidence: low", "p": ["<b>Thesis.</b> Gold fell about 11% and platinum 15% in November (Bloomberg). This morning gold is back near $3,643 and platinum $1,337, both up more than 2% (TE), and the JSE&rsquo;s Metals &amp; Mining index rose 4.49% on Thursday (Sharenet). If the metals&rsquo; liquidation selling is over, the miners rebound faster than the metals.", "<b>What would make it wrong.</b> The Fed hike strengthens the dollar again and the selling resumes.", "<b>Watch.</b> Gold against $3,500 and $3,780, and platinum against copper on 4 December (open ledger lines)."]}];
+(function(){
+  let h='';
+  RADAR.forEach(r=>{
+    h+='<div class="rcard"><h3>'+r.h+'</h3><div class="rmeta">'+r.m+'</div>';
+    r.p.forEach(p=>h+='<p>'+p+'</p>');
+    h+='</div>';
+  });
+  document.getElementById('radar').innerHTML=h;
+})();
+
+
+/* ============ DESK LINGO ============ */
+const LINGO = [{"t": "Put up or shut up (PUSU)", "d": "Under the UK Takeover Code, once a possible offer is made public the bidder normally has 28 days to announce a firm offer or walk away, usually for six months.", "s": "&ldquo;Imperial&rsquo;s in play and the PUSU clock started yesterday. The arbs are pricing a firm bid against a walk &mdash; at 13% up, the market says it&rsquo;s better than evens.&rdquo;", "w": "An offer period brings disclosure duties for anyone holding 1% or more, and for an audit client it raises subsequent-events and going-concern questions."}, {"t": "Dead-cat bounce", "d": "A short rebound in a falling market that does not mark the bottom: even a dead cat bounces if it falls far enough.", "s": "&ldquo;Nasdaq futures up 2.8% on a half-day after Thanksgiving, with no volume. Show me it holds into Monday&rsquo;s close before you call it anything but a dead-cat bounce.&rdquo;", "w": "When clients ask whether the bottom is in, the honest answer is about breadth and volume, not one day&rsquo;s gain."}, {"t": "Continuation vehicle (and the GP-led secondary)", "d": "A new fund, run by the same manager, that buys one or more assets from an older fund, so existing LPs can cash out or roll into the new vehicle.", "s": "&ldquo;Half the secondary market is GP-leds now. If the LPs won&rsquo;t sign the no-sue clause, the year-end CV pipeline slips into 2027.&rdquo;", "w": "In audit terms these are related-party transactions: the manager is on both sides, so pricing support, fairness opinions and LPAC approvals are the evidence that matters."}];
+const RECAP = "<b>Recap: Thursday&rsquo;s three.</b> <i>Intraday bear</i>: no repeat &mdash; US markets were shut and Nasdaq 100 futures are up 2.8% this morning (Bloomberg). <i>Dot plot</i>: the Fed&rsquo;s 9 December dots are next, with a hike priced at about 98% (CME FedWatch via Milk Road). <i>Systematic selling</i>: discretionary money is buying what the systems sold &mdash; Burry is now more long than short (Bloomberg Markets Daily).";
+(function(){
+  let h='';
+  LINGO.forEach(l=>{
+    h+='<div class="lcard"><h3>'+l.t+'</h3><div class="def">'+l.d+'</div>'+
+       '<div class="desk">On the desk: '+l.s+'</div>'+
+       '<div class="why">Why it matters to you: '+l.w+'</div></div>';
+  });
+  document.getElementById('lingo').innerHTML=h;
+  document.getElementById('recap').innerHTML=RECAP;
+})();
+
+
+/* ============ TOP THREE READS ============ */
+const READS = [["Financial Stability Report &ndash; November 2026", "Bank of England, 26 November", "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026", "Why it matters: the primary source for the Bank&rsquo;s first instruction to prioritise encryption upgrades against AI and quantum advances, and for its view on AI borrowing. This is what UK and Jersey regulated clients will be asked about next year."], ["Secondaries 2026: The Year in Review", "Private Markets Insights", "https://www.privatemarketsinsights.com/post/secondaries-2026-the-year-in-review", "Why it matters: one page that pulls together Jefferies, Evercore, Campbell Lutyens and Lazard on GP-led volume, continuation-vehicle pricing and LP discounts by strategy. It is the baseline for the new continuation-vehicle chain and for year-end valuation conversations with PE clients."], ["Bank outages become a side effect of the race to fight AI cyber threats", "Bloomberg Big Take, 25 November", "https://www.bloomberg.com/news/features/2026-11-25/bank-outages-become-side-effect-of-race-to-fight-ai-cyber-threats", "Why it matters: the operational side of the Bank of England&rsquo;s warning. Banks rushing to patch software against AI-found vulnerabilities are causing their own outages, which is an operational-resilience and IT-controls question for any audit."]];
+(function(){
+  let h='';
+  READS.forEach((r,i)=>{
+    h+='<div class="read"><h4>'+(r[2]?'<a href="'+r[2]+'" target="_blank" rel="noopener">'+(i+1)+'. '+r[0]+'</a>':(i+1)+'. '+r[0])+'</h4>'+
+       '<div class="src" style="color:var(--muted);font-size:12px">'+r[1]+'</div><p>'+r[3]+'</p></div>';
+  });
+  document.getElementById('reads').innerHTML=h;
+})();
+
+
+/* ============ CALENDAR ============ */
+const CAL = [["Today, Fri 27 Nov", "<b>Moody&rsquo;s and S&amp;P on South Africa</b> (after the JSE close); <b>Constitutional Court NHI judgment</b>; Johannesburg and Ekurhuleni votes for top officials. <b>US stocks close early</b> (13:00 ET, 18:00 UK), bonds 14:00 ET; Black Friday. RBI reserves for the week to 20 November, 11:30 GMT (baseline for RV1). Japan October trade; France and Spain flash November inflation; Germany unemployment (FT). Test day for NV1, DJ1, SI1, GN1, KW1, TB1, DB1 and PP1, and AH1&rsquo;s last session &mdash; scored on Monday&rsquo;s run."], ["Sat 28 &ndash; Sun 29 Nov", "<b>Sat:</b> Adobe Black Friday online-spend data (BF1); Taiwan local elections and referendums (FT); the Fed&rsquo;s blackout begins. <b>Sun:</b> OPEC+ ministers meet, considering a rollover of quotas into January (Bloomberg); Spain&rsquo;s general election."], ["Looking ahead", "<b>Mon 30 Nov:</b> Japan MoF intervention data (JY1); Aramco December propane price (LP1); MSCI changes at the close (MS1); month-end (RB1). <b>Around 30 Nov&ndash;2 Dec:</b> Nationwide house prices (UH1). <b>Tue 1 Dec:</b> naamsa vehicle exports (DP1). <b>Wed 2 Dec:</b> SA fuel prices change (FP1). <b>Fri 4 Dec:</b> US November jobs; RBI reserves (RV1); TY1, HC1, GI1, PT1, SD1, PB1 and RC1 tests. <b>8&ndash;9 Dec:</b> Fed decision. <b>11 Dec:</b> Fitch on South Africa."]];
+(function(){
+  let h='';
+  CAL.forEach(c=>{ h+='<div class="crow"><div class="cwhen">'+c[0]+'</div><p>'+c[1]+'</p></div>'; });
+  document.getElementById('cal').innerHTML=h;
+})();
+
+
+/* ============ FOOTER ============ */
+document.getElementById('footer').innerHTML = '<p><b>No restricted list is in force.</b> These are research ideas, not recommendations. Opinion items are tagged (opinion).</p>';
+</script>
+</body>
+</html>
